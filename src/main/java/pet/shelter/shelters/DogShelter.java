@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -39,5 +40,6 @@ public class DogShelter {
     private String dogHandlerAdvices;
     @Column(name = "handlers")
     private String handlersList;
+
 
 }
