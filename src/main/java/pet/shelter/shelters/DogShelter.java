@@ -41,4 +41,5 @@ public class DogShelter {
     @Column(name = "handlers")
     private String handlersList;
 
+
 }
