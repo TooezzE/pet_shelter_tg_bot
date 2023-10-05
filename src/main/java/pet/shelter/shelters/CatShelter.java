@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -35,7 +36,7 @@ public class CatShelter {
     @Column(name = "documents")
     private String documents;
     @Column(name = "recommendations")
-    private List<String> allRecommendations;
+    private HashMap<String, String> allRecommendations;
     @Column(name = "handler_advices")
     private String catHandlerAdvices;
     @Column(name = "handlers")
