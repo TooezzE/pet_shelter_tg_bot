@@ -35,11 +35,37 @@ public class DogShelter {
     @Column(name = "documents")
     private String documents;
     @Column(name = "recommendations")
-    private HashMap<String, String> allRecommendations;
+    HashMap<String, String> allRecommendations;
     @Column(name = "handler_advices")
     private String dogHandlerAdvices;
     @Column(name = "handlers")
     private String handlersList;
 
-
+    public DogShelter(List<Dog> dogsList,
+                      String infoAboutShelter,
+                      String howToPickUpAPet,
+                      String timetable,
+                      String address,
+                      String drivingDirections,
+                      String securityInfo,
+                      String safetyPrecautions,
+                      String rulesToMeetingAnimal,
+                      String documents,
+                      HashMap<String, String> allRecommendations,
+                      String dogHandlerAdvices,
+                      String handlersList) {
+        this.dogsList = dogsList;
+        this.infoAboutShelter = infoAboutShelter;
+        this.howToPickUpAPet = howToPickUpAPet;
+        this.timetable = timetable;
+        this.address = address;
+        this.drivingDirections = drivingDirections;
+        this.securityInfo = securityInfo;
+        this.safetyPrecautions = safetyPrecautions;
+        this.rulesToMeetingAnimal = rulesToMeetingAnimal;
+        this.documents = documents;
+        this.allRecommendations = allRecommendations;
+        this.dogHandlerAdvices = dogHandlerAdvices;
+        this.handlersList = handlersList;
+    }
 }

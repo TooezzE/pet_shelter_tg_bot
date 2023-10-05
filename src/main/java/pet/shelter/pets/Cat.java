@@ -11,10 +11,12 @@ public class Cat {
     private Long id;
     private String name;
     private int age;
+    private String breed;
 
-    public Cat(String name, int age) {
+    public Cat(String name, int age, String breed) {
         this.name = name;
         this.age = age;
+        this.breed = breed;
     }
 
     public Long getId() {
@@ -37,12 +39,22 @@ public class Cat {
         this.age = age;
     }
 
+    public String getBreed() {
+        return breed;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+
     @Override
     public String toString() {
         return "Cat{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
+                ", breed='" + breed + '\'' +
                 '}';
     }
 }

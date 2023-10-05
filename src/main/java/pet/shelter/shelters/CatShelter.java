@@ -36,7 +36,7 @@ public class CatShelter {
     @Column(name = "documents")
     private String documents;
     @Column(name = "recommendations")
-    private HashMap<String, String> allRecommendations;
+    HashMap<String, String> allRecommendations;
     @Column(name = "handler_advices")
     private String catHandlerAdvices;
     @Column(name = "handlers")
