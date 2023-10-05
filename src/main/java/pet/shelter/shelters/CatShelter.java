@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -35,10 +36,37 @@ public class CatShelter {
     @Column(name = "documents")
     private String documents;
     @Column(name = "recommendations")
-    private List<String> allRecommendations;
+    private HashMap<String, String> allRecommendations;
     @Column(name = "handler_advices")
     private String catHandlerAdvices;
     @Column(name = "handlers")
     private String handlersList;
 
+    public CatShelter(List<Cat> catsList,
+                      String infoAboutShelter,
+                      String howToPickUpAPet,
+                      String timetable,
+                      String address,
+                      String drivingDirections,
+                      String securityInfo,
+                      String safetyPrecautions,
+                      String rulesToMeetingAnimal,
+                      String documents,
+                      HashMap<String, String> allRecommendations,
+                      String catHandlerAdvices,
+                      String handlersList) {
+        this.catsList = catsList;
+        this.infoAboutShelter = infoAboutShelter;
+        this.howToPickUpAPet = howToPickUpAPet;
+        this.timetable = timetable;
+        this.address = address;
+        this.drivingDirections = drivingDirections;
+        this.securityInfo = securityInfo;
+        this.safetyPrecautions = safetyPrecautions;
+        this.rulesToMeetingAnimal = rulesToMeetingAnimal;
+        this.documents = documents;
+        this.allRecommendations = allRecommendations;
+        this.catHandlerAdvices = catHandlerAdvices;
+        this.handlersList = handlersList;
+    }
 }
