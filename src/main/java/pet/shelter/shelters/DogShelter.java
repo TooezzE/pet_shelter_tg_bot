@@ -35,7 +35,7 @@ public class DogShelter {
     @Column(name = "documents")
     private String documents;
     @Column(name = "recommendations")
-    private HashMap<String, String> allRecommendations;
+    private List<String> allRecommendations;
     @Column(name = "handler_advices")
     private String dogHandlerAdvices;
     @Column(name = "handlers")
