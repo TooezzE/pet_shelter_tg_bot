@@ -1,6 +1,10 @@
 package pet.shelter.shelters;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import pet.shelter.pets.Dog;
 
 import javax.persistence.Column;
@@ -12,6 +16,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "dog_shelter")
+@Getter
+@Setter
+@AllArgsConstructor
+@ToString
 public class DogShelter {
     @JsonIgnore
     @OneToMany(targetEntity = Dog.class)
@@ -34,12 +42,6 @@ public class DogShelter {
     private String rulesToMeetingAnimal;
     @Column(name = "documents")
     private String documents;
-    @Column(name = "recommendations")
-    private HashMap<String, String> allRecommendations;
-    @Column(name = "handler_advices")
-    private String dogHandlerAdvices;
     @Column(name = "handlers")
     private String handlersList;
-
-
 }
