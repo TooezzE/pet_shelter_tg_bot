@@ -17,19 +17,4 @@ public class DogRecommendations extends Recommendations {
         super(transport, homeImprovementForYoungPet, homeImprovementForAdultPet, recommendationsForDisabledPet);
         this.firstTimeDogHandlerAdvices = firstTimeDogHandlerAdvices;
     }
-
-    public String getFirstTimeDogHandlerAdvices() {
-        return firstTimeDogHandlerAdvices;
-    }
-
-    public void setFirstTimeDogHandlerAdvices(String firstTimeDogHandlerAdvices) {
-        this.firstTimeDogHandlerAdvices = firstTimeDogHandlerAdvices;
-    }
-
-    @Override
-    public String toString() {
-        return "DogRecommendations{" +
-                "firstTimeDogHandlerAdvices='" + firstTimeDogHandlerAdvices + '\'' +
-                '}';
-    }
 }
