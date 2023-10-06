@@ -1,9 +1,16 @@
 package pet.shelter.pets;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import pet.shelter.recommends.CatRecommendations;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "cats")
 public class Cat {
@@ -16,62 +23,10 @@ public class Cat {
     private String breed;
     private CatRecommendations catRecommendations;
 
-    public Cat(Long id, String name, int age, String breed, CatRecommendations catRecommendations) {
-        this.id = id;
+    public Cat(String name, int age, String breed, CatRecommendations catRecommendations) {
         this.name = name;
         this.age = age;
         this.breed = breed;
         this.catRecommendations = catRecommendations;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getBreed() {
-        return breed;
-    }
-
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
-
-    public CatRecommendations getCatRecommendations() {
-        return catRecommendations;
-    }
-
-    public void setCatRecommendations(CatRecommendations catRecommendations) {
-        this.catRecommendations = catRecommendations;
-    }
-
-    @Override
-    public String toString() {
-        return "Cat{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", breed='" + breed + '\'' +
-                ", catRecommendations=" + catRecommendations +
-                '}';
     }
 }
