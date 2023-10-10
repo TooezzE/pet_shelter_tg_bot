@@ -1,10 +1,10 @@
-package pet.shelter.pets;
+package pet.shelter.entity.pets;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import pet.shelter.recommends.CatRecommendations;
+import pet.shelter.entity.recommends.CatRecommendations;
+import pet.shelter.entity.shelters.CatShelter;
 
 import javax.persistence.*;
 
@@ -21,7 +21,12 @@ public class Cat {
     private String name;
     private int age;
     private String breed;
+    @Column(name = "cat_recomms")
+    @OneToOne(targetEntity = CatRecommendations.class)
     private CatRecommendations catRecommendations;
+    @ManyToOne
+    @JoinColumn(name = "shelter_id")
+    private CatShelter shelter;
 
     public Cat(String name, int age, String breed, CatRecommendations catRecommendations) {
         this.name = name;
