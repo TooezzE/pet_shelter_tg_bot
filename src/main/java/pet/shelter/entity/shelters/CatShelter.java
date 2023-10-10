@@ -1,18 +1,13 @@
-package pet.shelter.shelters;
+package pet.shelter.entity.shelters;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import pet.shelter.pets.Cat;
-import pet.shelter.pets.Dog;
+import pet.shelter.entity.pets.Cat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import java.util.HashMap;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -22,8 +17,11 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class CatShelter {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @JsonIgnore
-    @OneToMany(targetEntity = Cat.class)
+    @OneToMany(mappedBy = "shelter")
     private List<Cat> catsList;
     @Column(name = "info")
     private String infoAboutShelter;

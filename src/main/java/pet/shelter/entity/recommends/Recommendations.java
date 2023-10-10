@@ -1,4 +1,4 @@
-package pet.shelter.recommends;
+package pet.shelter.entity.recommends;
 
 
 import lombok.AllArgsConstructor;
