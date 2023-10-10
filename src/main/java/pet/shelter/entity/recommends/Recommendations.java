@@ -7,13 +7,21 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
-@ToString
-@AllArgsConstructor
-public abstract class Recommendations {
+    @Setter
+    @ToString
 
-    private String transport;
-    private String homeImprovementForYoungPet;
-    private String homeImprovementForAdultPet;
-    private String recommendationsForDisabledPet;
+    public abstract class Recommendations {
+
+        private String transport;
+        private String homeImprovementForYoungPet;
+        private String homeImprovementForAdultPet;
+        private String recommendationsForDisabledPet;
+
+    public Recommendations(String transport, String homeImprovementForYoungPet, String homeImprovementForAdultPet, String recommendationsForDisabledPet) {
+        this.transport = transport;
+        this.homeImprovementForYoungPet = homeImprovementForYoungPet;
+        this.homeImprovementForAdultPet = homeImprovementForAdultPet;
+        this.recommendationsForDisabledPet = recommendationsForDisabledPet;
+    }
 }
+
