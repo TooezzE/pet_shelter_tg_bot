@@ -6,9 +6,9 @@ public enum CommandName {
     HELP("/help"),
     INFO("/info"),
     SCHEDULE("/schedule"),
-    CONTACTS("/contacts"),
+    SECURITY("/security"),
     SAFETY_TIPS("/safetytips"),
-    CONTACT_INFO("/contactinfo"),
+    GUESS_INFO("/contactinfo"),
     VOLUNTEER("/volunteer"),
     UNKNOWN("");
 
