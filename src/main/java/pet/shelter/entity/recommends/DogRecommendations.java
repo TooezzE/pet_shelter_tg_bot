@@ -1,6 +1,7 @@
 package pet.shelter.entity.recommends;
 
 import lombok.*;
+import pet.shelter.entity.pets.Dog;
 
 import javax.persistence.*;
 
@@ -13,8 +14,11 @@ public class DogRecommendations extends Recommendations {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rec_id")
     private Long id;
+    @OneToOne
+    @JoinColumn(name = "dog_id")
+    private Dog dog;
+    @Column(name = "handler_advices")
     private String firstTimeDogHandlerAdvices;
 
     public DogRecommendations(String transport,
@@ -24,5 +28,8 @@ public class DogRecommendations extends Recommendations {
                               String firstTimeDogHandlerAdvices) {
         super(transport, homeImprovementForYoungPet, homeImprovementForAdultPet, recommendationsForDisabledPet);
         this.firstTimeDogHandlerAdvices = firstTimeDogHandlerAdvices;
+    }
+
+    public DogRecommendations() {
     }
 }

@@ -20,17 +20,27 @@ public class Dog {
     private String name;
     private int age;
     private String breed;
-    @Column(name = "dog_recomms")
-    @OneToOne(targetEntity = DogRecommendations.class)
+    private boolean isDisabled;
+    @OneToOne(mappedBy = "dog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "dog_recomms_id")
     private DogRecommendations dogRecommendations;
-    @ManyToOne
-    @JoinColumn(name = "shelter_id")
-    private DogShelter shelter;
 
-    public Dog(String name, int age, String breed, DogRecommendations dogRecommendations) {
+    public Dog(String name, int age, String breed, boolean isDisabled, DogRecommendations dogRecommendations) {
         this.name = name;
         this.age = age;
         this.breed = breed;
+        this.isDisabled = isDisabled;
+        if(!isDisabled) {
+            dogRecommendations.setRecommendationsForDisabledPet(null);
+        }
+        if(age > 5) {
+            dogRecommendations.setHomeImprovementForYoungPet(null);
+        } else {
+            dogRecommendations.setHomeImprovementForAdultPet(null);
+        }
         this.dogRecommendations = dogRecommendations;
+    }
+
+    public Dog() {
     }
 }
