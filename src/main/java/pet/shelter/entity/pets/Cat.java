@@ -21,17 +21,27 @@ public class Cat {
     private String name;
     private int age;
     private String breed;
-    @Column(name = "cat_recomms")
-    @OneToOne(targetEntity = CatRecommendations.class)
+    private boolean isDisabled;
+    @OneToOne(mappedBy = "cat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "cat_recomms_id")
     private CatRecommendations catRecommendations;
-    @ManyToOne
-    @JoinColumn(name = "shelter_id")
-    private CatShelter shelter;
 
-    public Cat(String name, int age, String breed, CatRecommendations catRecommendations) {
+    public Cat(String name, int age, String breed, boolean isDisabled, CatRecommendations catRecommendations) {
         this.name = name;
         this.age = age;
         this.breed = breed;
+        this.isDisabled = isDisabled;
+        if(!isDisabled) {
+            catRecommendations.setRecommendationsForDisabledPet(null);
+        }
+        if(age > 5) {
+            catRecommendations.setHomeImprovementForYoungPet(null);
+        } else {
+            catRecommendations.setHomeImprovementForAdultPet(null);
+        }
         this.catRecommendations = catRecommendations;
+    }
+
+    public Cat() {
     }
 }

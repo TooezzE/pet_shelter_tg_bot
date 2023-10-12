@@ -14,18 +14,18 @@ import java.util.List;
 @Table(name = "cat_shelter")
 @Getter
 @Setter
-@AllArgsConstructor
 @ToString
 public class CatShelter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @JsonIgnore
-    @OneToMany(mappedBy = "shelter")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shelter_id")
     private List<Cat> catsList;
     @Column(name = "info")
     private String infoAboutShelter;
-    @Column(name = "how_pick_up")
+    @Column(name = "how_to_pick_up")
     private String howToPickUpAPet;
     @Column(name = "timetable")
     private String timetable;
@@ -41,4 +41,29 @@ public class CatShelter {
     private String rulesToMeetingAnimal;
     @Column(name = "documents")
     private String documents;
+
+    public CatShelter(List<Cat> catsList,
+                      String infoAboutShelter,
+                      String howToPickUpAPet,
+                      String timetable,
+                      String address,
+                      String drivingDirections,
+                      String securityInfo,
+                      String safetyPrecautions,
+                      String rulesToMeetingAnimal,
+                      String documents) {
+        this.catsList = catsList;
+        this.infoAboutShelter = infoAboutShelter;
+        this.howToPickUpAPet = howToPickUpAPet;
+        this.timetable = timetable;
+        this.address = address;
+        this.drivingDirections = drivingDirections;
+        this.securityInfo = securityInfo;
+        this.safetyPrecautions = safetyPrecautions;
+        this.rulesToMeetingAnimal = rulesToMeetingAnimal;
+        this.documents = documents;
+    }
+
+    public CatShelter() {
+    }
 }
