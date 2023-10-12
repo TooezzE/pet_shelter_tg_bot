@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import pet.shelter.entity.pets.Cat;
 
 @Repository
-public interface CatsRepository extends JpaRepository<Long, Cat> {
+public interface CatsRepository extends JpaRepository<Cat, Long> {
 }
