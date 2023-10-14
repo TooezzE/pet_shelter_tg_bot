@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import pet.shelter.entity.pets.Cat;
 import pet.shelter.entity.pets.Dog;
 
 import javax.persistence.*;

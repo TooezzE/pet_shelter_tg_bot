@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import pet.shelter.commands.CommandName;
 
 public class KeyBoard {
-    private final Logger logger= LoggerFactory.getLogger(KeyBoard.class);
+    private final Logger logger = LoggerFactory.getLogger(KeyBoard.class);
     private TelegramBot telegramBot;
 
     public KeyBoard(TelegramBot telegramBot) {
@@ -21,17 +21,14 @@ public class KeyBoard {
                 CommandName.CAT.getCommandName(), CommandName.DOG.getCommandName());
         sendResponseMenu(chatId, replyKeyboardMarkup, "Выберите приют");
     }
+
     public void shelterMainMenu(long chatId) {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                new String[]{CommandName.INFO.getCommandName(), CommandName.КАК ВЗЯТЬ ЖИВОТНОЕ.getCommandName()},
-                new String[]{CommandName.ОТЧЕТ.getCommand(), CommandName.VOLUNTEER.getCommandName()});
+                new String[]{CommandName.SHELTER_INFO.getCommandName(), CommandName.HOW_ADOPT_PET_INFO.getCommandName()},
+                new String[]{CommandName.SEND_CONTACT. getCommandName(), CommandName.VOLUNTEER.getCommandName()});
         sendResponseMenu(chatId, replyKeyboardMarkup, "Ниже представлено главное меню приюта. " +
                 "Чтобы вернуться к выбору приюта, напишите команду /start");
     }
-
-
-
-
 
 
     public void sendResponseMenu(long chatId, ReplyKeyboardMarkup replyKeyboardMarkup, String message) {
@@ -42,3 +39,4 @@ public class KeyBoard {
             logger.error("Error during sending message: {}", sendResponse.description());
         }
     }
+}
