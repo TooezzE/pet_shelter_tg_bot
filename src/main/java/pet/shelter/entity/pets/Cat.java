@@ -21,14 +21,22 @@ public class Cat extends Animal {
     @JoinColumn(name = "cat_recomms_id")
     private CatRecommendations catRecommendations;
 
-    public Cat(String name, int age, String breed, boolean isDisabled, boolean isAdopted, CatRecommendations catRecommendations) {
+    public Cat(String name,
+               int age,
+               String breed,
+               boolean isDisabled,
+               boolean isAdopted,
+               CatRecommendations catRecommendations) {
         super(name, age, breed, isDisabled, isAdopted);
-    if(age > 5) {
-            catRecommendations.setHomeImprovementForYoungPet(null);
-        } else {
-            catRecommendations.setHomeImprovementForAdultPet(null);
+        if(!isDisabled) {
+            catRecommendations.setRecommendationsForDisabledPet(null);
         }
         this.catRecommendations = catRecommendations;
+        if(age > 5) {
+                catRecommendations.setHomeImprovementForYoungPet(null);
+            } else {
+                catRecommendations.setHomeImprovementForAdultPet(null);
+            }
     }
 
     public Cat() {

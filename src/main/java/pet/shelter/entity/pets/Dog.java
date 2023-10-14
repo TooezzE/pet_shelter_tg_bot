@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import pet.shelter.entity.recommends.DogRecommendations;
-import pet.shelter.entity.shelters.DogShelter;
 
 import javax.persistence.*;
 @Getter
@@ -28,6 +27,9 @@ public class Dog extends Animal{
                boolean isAdopted,
                DogRecommendations dogRecommendations) {
         super(name, age, breed, isDisabled, isAdopted);
+        if(!isDisabled) {
+            dogRecommendations.setRecommendationsForDisabledPet(null);
+        }
         this.dogRecommendations = dogRecommendations;
         if (age > 5) {
             dogRecommendations.setHomeImprovementForYoungPet(null);
