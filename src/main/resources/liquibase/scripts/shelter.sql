@@ -7,6 +7,7 @@ CREATE TABLE cats (
 	age int4,
 	breed varchar,
 	is_disabled boolean,
+	is_adopted boolean,
 	shelter_id int8
 );
 
@@ -16,10 +17,11 @@ CREATE TABLE dogs (
 	age int4,
 	breed varchar,
 	is_disabled boolean,
+	is_adopted boolean,
 	shelter_id int8
 );
 
-CREATE TABLE dog_shelter (
+CREATE TABLE shelter (
 	id bigserial NOT NULL,
 	info varchar,
 	how_to_pick_up varchar,
@@ -31,21 +33,7 @@ CREATE TABLE dog_shelter (
 	rules_to_meet_animal varchar,
 	documents varchar,
 	handlers varchar,
-	CONSTRAINT dog_shelter_pkey PRIMARY KEY (id)
-);
-
-CREATE TABLE cat_shelter (
-	id bigserial NOT NULL,
-	info varchar,
-	how_to_pick_up varchar,
-	timetable varchar,
-	address varchar,
-	driving_directions varchar,
-	security_info varchar,
-	safety_precautions varchar,
-	rules_to_meet_animal varchar,
-	documents varchar,
-	CONSTRAINT cat_shelter_pkey PRIMARY KEY (id)
+	CONSTRAINT shelter_pkey PRIMARY KEY (id)
 );
 
 

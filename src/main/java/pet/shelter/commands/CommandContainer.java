@@ -16,12 +16,6 @@ public class CommandContainer {
     public CommandContainer(SendBotMessageService service) {
         commandMap.put(START.getCommandName(), new StartCommand(service));
         commandMap.put(HELP.getCommandName(), new HelpCommand(service));
-        commandMap.put(INFO.getCommandName(), new InfoCommand(service));
-        commandMap.put(SCHEDULE.getCommandName(), new ScheduleCommand(service));
-        commandMap.put(SECURITY.getCommandName(), new SecurityCommand(service));
-        commandMap.put(SAFETY_TIPS.getCommandName(), new SafetyTipsCommand(service));
-        commandMap.put(GUESS_INFO.getCommandName(), new GuestInfoCommand(service));
-        commandMap.put(VOLUNTEER.getCommandName(), new VolunteerCommand(service));
         unknownCommand = new UnknownCommand(service);
     }
 

@@ -1,7 +1,6 @@
-package pet.shelter.entity.shelters;
+package pet.shelter.entity.shelter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,11 +11,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "dog_shelter")
+@Table(name = "shelter")
 @Getter
 @Setter
 @ToString
-public class DogShelter {
+public class Shelter {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,6 +24,10 @@ public class DogShelter {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "shelter_id")
     private List<Dog> dogsList;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shelter_id")
+    private List<Cat> catsList;
     @Column(name = "info")
     private String infoAboutShelter;
     @Column(name = "how_to_pick_up")
@@ -45,18 +49,20 @@ public class DogShelter {
     @Column(name = "handlers")
     private String handlersList;
 
-    public DogShelter(List<Dog> dogsList,
-                      String infoAboutShelter,
-                      String howToPickUpAPet,
-                      String timetable,
-                      String address,
-                      String drivingDirections,
-                      String securityInfo,
-                      String safetyPrecautions,
-                      String rulesToMeetingAnimal,
-                      String documents,
-                      String handlersList) {
+    public Shelter(List<Dog> dogsList,
+                   List<Cat> catsList,
+                   String infoAboutShelter,
+                   String howToPickUpAPet,
+                   String timetable,
+                   String address,
+                   String drivingDirections,
+                   String securityInfo,
+                   String safetyPrecautions,
+                   String rulesToMeetingAnimal,
+                   String documents,
+                   String handlersList) {
         this.dogsList = dogsList;
+        this.catsList = catsList;
         this.infoAboutShelter = infoAboutShelter;
         this.howToPickUpAPet = howToPickUpAPet;
         this.timetable = timetable;
@@ -67,8 +73,5 @@ public class DogShelter {
         this.rulesToMeetingAnimal = rulesToMeetingAnimal;
         this.documents = documents;
         this.handlersList = handlersList;
-    }
-
-    public DogShelter() {
     }
 }

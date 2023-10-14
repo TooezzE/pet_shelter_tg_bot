@@ -15,6 +15,7 @@ public enum CommandName {
 //    DOG("/dog");
 //
     START("/start"),
+    HELP("/help"),
     SHELTER_INFO("Информация о приюте"),
     MAIN_MENU("Главное меню"),
 
