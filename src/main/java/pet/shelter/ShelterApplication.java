@@ -2,10 +2,12 @@ package pet.shelter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import pet.shelter.pets.Dog;
-import pet.shelter.recommends.DogRecommendations;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
+@EnableJpaRepositories("pet.shelter.repositories")
+@EntityScan("pet.shelter.entity")
 public class ShelterApplication {
 
 	public static void main(String[] args) {

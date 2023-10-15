@@ -1,12 +1,24 @@
-package pet.shelter.recommends;
+package pet.shelter.entity.recommends;
 
 import lombok.*;
+import pet.shelter.entity.pets.Dog;
+
+import javax.persistence.*;
 
 @Getter
 @Setter
 @ToString
+@Entity
+@Table(name = "dog_recomms")
 public class DogRecommendations extends Recommendations {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @OneToOne
+    @JoinColumn(name = "dog_id")
+    private Dog dog;
+    @Column(name = "handler_advices")
     private String firstTimeDogHandlerAdvices;
 
     public DogRecommendations(String transport,
@@ -18,18 +30,6 @@ public class DogRecommendations extends Recommendations {
         this.firstTimeDogHandlerAdvices = firstTimeDogHandlerAdvices;
     }
 
-    public String getFirstTimeDogHandlerAdvices() {
-        return firstTimeDogHandlerAdvices;
-    }
-
-    public void setFirstTimeDogHandlerAdvices(String firstTimeDogHandlerAdvices) {
-        this.firstTimeDogHandlerAdvices = firstTimeDogHandlerAdvices;
-    }
-
-    @Override
-    public String toString() {
-        return "DogRecommendations{" +
-                "firstTimeDogHandlerAdvices='" + firstTimeDogHandlerAdvices + '\'' +
-                '}';
+    public DogRecommendations() {
     }
 }
