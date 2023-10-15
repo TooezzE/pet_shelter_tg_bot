@@ -4,6 +4,9 @@ import com.pengrad.telegrambot.model.Update;
 import pet.shelter.commands.Command;
 import pet.shelter.communication.SendBotMessageService;
 
+/**
+ * Модель класса об информации о приюте
+ */
 public class InfoCommand implements Command {
 
     private final SendBotMessageService service;

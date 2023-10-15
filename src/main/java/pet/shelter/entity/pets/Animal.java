@@ -10,6 +10,9 @@ import javax.persistence.MappedSuperclass;
 @Setter
 @ToString
 @MappedSuperclass
+/**
+ * Абстрактный клас модель для возможности расширения бота
+ */
 public abstract class Animal {
 
     private String name;

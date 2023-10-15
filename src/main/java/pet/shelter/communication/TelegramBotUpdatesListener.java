@@ -44,6 +44,7 @@ public class TelegramBotUpdatesListener implements UpdatesListener, SendBotMessa
             logger.info("Processing update: {}", update);
             String messText = update.message().text();
 
+
                             if (messText.startsWith(COMMAND_PREFIX)) {
                                 String commandIdentifier = messText.split(" ")[0].toLowerCase();
                                 commandContainer.retrieveCommand(commandIdentifier).execute(update);
@@ -65,6 +66,11 @@ public class TelegramBotUpdatesListener implements UpdatesListener, SendBotMessa
             telegramBot.execute(sendMessage);
         }
 
+    /**
+     * метод проходит по командам пользователя и сравнивает их
+     * @param commandName
+     * @return
+     */
         public static CommandName parse (String commandName){
             CommandName[] values = CommandName.values();
             for (CommandName command : values) {
