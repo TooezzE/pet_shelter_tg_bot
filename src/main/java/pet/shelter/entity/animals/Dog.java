@@ -1,4 +1,4 @@
-package pet.shelter.entity.pets;
+package pet.shelter.entity.animals;
 
 import lombok.Getter;
 import lombok.Setter;

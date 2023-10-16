@@ -25,6 +25,9 @@ public class TelegramBotUpdatesListener implements UpdatesListener, SendBotMessa
 
     private final Logger logger = LoggerFactory.getLogger(TelegramBotUpdatesListener.class);
 
+    /**
+     * Prefix to identify command from other text
+     */
     public static final String COMMAND_PREFIX = "/";
     @Autowired
     private TelegramBot telegramBot;
@@ -39,44 +42,44 @@ public class TelegramBotUpdatesListener implements UpdatesListener, SendBotMessa
         telegramBot.setUpdatesListener(this);
     }
 
+    /**
+     * Method processes updates coming from user.<br>Recognizes which command-answer to send
+     */
     public int process(List<Update> updates) {
         updates.forEach(update -> {
             logger.info("Processing update: {}", update);
             String messText = update.message().text();
-
-                            if (messText.startsWith(COMMAND_PREFIX)) {
-                                String commandIdentifier = messText.split(" ")[0].toLowerCase();
-                                commandContainer.retrieveCommand(commandIdentifier).execute(update);
-                            } else {
-                                commandContainer.retrieveCommand(UNKNOWN.getCommandName()).execute(update);
-                            }
-
-                        });
-                        return UpdatesListener.CONFIRMED_UPDATES_ALL;
-                    }
-
-
-
-
-
-        @Override
-        public void sendMessage (Long chatId, String message){
-            SendMessage sendMessage = new SendMessage(chatId, message);
-            telegramBot.execute(sendMessage);
-        }
-
-        public static CommandName parse (String commandName){
-            CommandName[] values = CommandName.values();
-            for (CommandName command : values) {
-                if (command.getCommandName().equals(commandName)) {
-                    return command;
-                }
+            if (messText.startsWith(COMMAND_PREFIX)) {
+                String commandIdentifier = messText.split(" ")[0].toLowerCase();
+                commandContainer.retrieveCommand(commandIdentifier).execute(update);
+            } else {
+                commandContainer.retrieveCommand(UNKNOWN.getCommandName()).execute(update);
             }
-            return UNKNOWN;
+        });
+        return UpdatesListener.CONFIRMED_UPDATES_ALL;
+    }
 
+    @Override
+    public void sendMessage (Long chatId, String message){
+        SendMessage sendMessage = new SendMessage(chatId, message);
+        telegramBot.execute(sendMessage);
+    }
+
+    /**
+     * Method to parse commands. <b>Not ready for usage.</b>
+     */
+    public static CommandName parse (String commandName){
+        CommandName[] values = CommandName.values();
+        for (CommandName command : values) {
+            if (command.getCommandName().equals(commandName)) {
+                return command;
+            }
         }
+        return UNKNOWN;
 
     }
+
+}
 
 
 

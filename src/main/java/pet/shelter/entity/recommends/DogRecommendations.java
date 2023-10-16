@@ -1,7 +1,7 @@
 package pet.shelter.entity.recommends;
 
 import lombok.*;
-import pet.shelter.entity.pets.Dog;
+import pet.shelter.entity.animals.Dog;
 
 import javax.persistence.*;
 
