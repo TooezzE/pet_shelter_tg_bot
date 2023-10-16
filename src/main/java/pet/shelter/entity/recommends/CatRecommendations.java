@@ -2,7 +2,7 @@ package pet.shelter.entity.recommends;
 
 import lombok.Getter;
 import lombok.Setter;
-import pet.shelter.entity.pets.Cat;
+import pet.shelter.entity.animals.Cat;
 
 import javax.persistence.*;
 

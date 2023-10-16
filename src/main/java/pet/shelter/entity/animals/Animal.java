@@ -1,4 +1,4 @@
-package pet.shelter.entity.pets;
+package pet.shelter.entity.animals;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+
 @Getter
 @Setter
 @ToString
@@ -18,7 +19,7 @@ public abstract class Animal {
     @Column(name = "is_disabled")
     private boolean isDisabled;
     @Column(name = "is_adopted")
-    private boolean isAdopted; //взяли ли животное из приюта
+    private boolean isAdopted;  //was animal adopted from shelter
 
     public Animal(String name,
                   int age,

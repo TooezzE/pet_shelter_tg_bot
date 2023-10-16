@@ -4,12 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import pet.shelter.entity.pets.Cat;
-import pet.shelter.entity.pets.Dog;
+import pet.shelter.entity.animals.Cat;
+import pet.shelter.entity.animals.Dog;
 
 import javax.persistence.*;
 import java.util.List;
 
+
+/**
+ * Main entity. Contains all info about shelter and it's facilities
+ */
 @Entity
 @Table(name = "shelter")
 @Getter

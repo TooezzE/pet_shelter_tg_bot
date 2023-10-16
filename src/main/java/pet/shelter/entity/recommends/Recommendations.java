@@ -8,6 +8,9 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
+/**
+ * Class of recommendations according to any animal in shelter
+ */
 @Getter
 @Setter
 @ToString

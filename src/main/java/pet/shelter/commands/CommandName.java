@@ -1,5 +1,9 @@
 package pet.shelter.commands;
 
+
+/**
+ * Enum with all available commands
+ */
 public enum CommandName {
 
     //    START("/start"),
