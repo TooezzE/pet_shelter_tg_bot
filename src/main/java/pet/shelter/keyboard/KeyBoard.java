@@ -8,6 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pet.shelter.commands.CommandName;
 
+/**
+ * Keyboard class to get user's commands. <b>Not ready for usage</b>
+ */
 public class KeyBoard {
     private final Logger logger = LoggerFactory.getLogger(KeyBoard.class);
     private TelegramBot telegramBot;

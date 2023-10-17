@@ -8,6 +8,9 @@ import java.util.Map;
 
 import static pet.shelter.commands.CommandName.*;
 
+/**
+ * Command container, contains all available commands
+ */
 public class CommandContainer {
 
     private final Map<String, Command> commandMap = new HashMap<>();

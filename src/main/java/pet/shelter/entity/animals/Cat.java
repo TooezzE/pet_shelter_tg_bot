@@ -7,6 +7,9 @@ import pet.shelter.entity.recommends.CatRecommendations;
 
 import javax.persistence.*;
 
+/**
+ * Cat's class
+ */
 @Getter
 @Setter
 @ToString

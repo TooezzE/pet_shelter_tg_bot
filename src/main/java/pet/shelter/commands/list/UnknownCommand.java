@@ -4,6 +4,9 @@ import com.pengrad.telegrambot.model.Update;
 import pet.shelter.commands.Command;
 import pet.shelter.communication.SendBotMessageService;
 
+/**
+ * Send answer if command unrecognized
+ */
 public class UnknownCommand implements Command {
 
     private final SendBotMessageService service;
