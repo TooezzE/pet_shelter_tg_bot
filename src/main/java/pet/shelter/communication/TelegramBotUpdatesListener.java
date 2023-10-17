@@ -14,12 +14,12 @@ import pet.shelter.commands.CommandName;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
-import static java.awt.SystemColor.menu;
-import static java.awt.SystemColor.text;
-import static java.util.logging.Level.parse;
 import static pet.shelter.commands.CommandName.*;
 
 
+/**
+ * Class to process user's messages and send answers
+ */
 @Service
 public class TelegramBotUpdatesListener implements UpdatesListener, SendBotMessageService {
 
@@ -76,7 +76,6 @@ public class TelegramBotUpdatesListener implements UpdatesListener, SendBotMessa
             }
         }
         return UNKNOWN;
-
     }
 
 }

@@ -4,6 +4,9 @@ import com.pengrad.telegrambot.model.Update;
 import pet.shelter.commands.Command;
 import pet.shelter.communication.SendBotMessageService;
 
+/**
+ * Command to get address, timetable and driving directions info
+ */
 public class ScheduleCommand implements Command {
 
     private final SendBotMessageService service;

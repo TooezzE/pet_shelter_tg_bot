@@ -4,6 +4,9 @@ import com.pengrad.telegrambot.model.Update;
 import pet.shelter.commands.Command;
 import pet.shelter.communication.SendBotMessageService;
 
+/**
+ * Command to put users data into db
+ */
 public class GuestInfoCommand implements Command {
     private final SendBotMessageService service;
     public static final String GUEST_INFO_MESSAGE = "";

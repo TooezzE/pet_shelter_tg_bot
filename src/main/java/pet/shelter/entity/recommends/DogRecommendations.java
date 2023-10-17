@@ -5,6 +5,9 @@ import pet.shelter.entity.animals.Dog;
 
 import javax.persistence.*;
 
+/**
+ * Dog recommendations class
+ */
 @Getter
 @Setter
 @ToString

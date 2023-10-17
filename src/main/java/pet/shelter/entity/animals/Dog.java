@@ -6,6 +6,10 @@ import lombok.ToString;
 import pet.shelter.entity.recommends.DogRecommendations;
 
 import javax.persistence.*;
+
+/**
+ * Dog's class
+ */
 @Getter
 @Setter
 @ToString

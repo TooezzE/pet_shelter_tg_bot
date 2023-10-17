@@ -7,6 +7,9 @@ import pet.shelter.communication.SendBotMessageService;
 import static pet.shelter.commands.CommandName.HELP;
 import static pet.shelter.commands.CommandName.START;
 
+/**
+ * Command for user to get help navigation on available commands
+ */
 public class HelpCommand implements Command {
 
     private final SendBotMessageService service;

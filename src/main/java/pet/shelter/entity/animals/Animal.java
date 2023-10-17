@@ -7,6 +7,9 @@ import lombok.ToString;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+/**
+ * Class of animals to extend all shelter inhabitants
+ */
 @Getter
 @Setter
 @ToString

@@ -4,6 +4,9 @@ import com.pengrad.telegrambot.model.Update;
 import pet.shelter.commands.Command;
 import pet.shelter.communication.SendBotMessageService;
 
+/**
+ * Command to call volunteer if bot can't help you
+ */
 public class VolunteerCommand implements Command {
     private final SendBotMessageService service;
     public static final String VOLUNTEER_MESSAGE = "Ожидайте! Вызываем волонтёра для помощи";

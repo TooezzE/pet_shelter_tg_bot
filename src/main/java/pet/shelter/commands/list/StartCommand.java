@@ -4,6 +4,9 @@ import com.pengrad.telegrambot.model.Update;
 import pet.shelter.commands.Command;
 import pet.shelter.communication.SendBotMessageService;
 
+/**
+ * Command to start bot
+ */
 public class StartCommand implements Command {
 
     private final SendBotMessageService service;

@@ -4,6 +4,9 @@ import com.pengrad.telegrambot.model.Update;
 import pet.shelter.commands.Command;
 import pet.shelter.communication.SendBotMessageService;
 
+/**
+ * Command to get info about security
+ */
 public class SecurityCommand implements Command {
 
     private final SendBotMessageService service;
