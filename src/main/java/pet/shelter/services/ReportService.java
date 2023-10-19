@@ -34,32 +34,32 @@ public class ReportService {
         report.setBehaviour(behaviour);
         report.setLastMessage(lastMessage);
         report.setData(dataFile);
-        this.reportRepository.save(report);
+        reportRepository.save(report);
     }
 
     public Report save(Report report) {
-        return this.reportRepository.save(report);
+        return reportRepository.save(report);
     }
 
     public Report findById(Long id) {
-        return this.reportRepository.findById(id)
+        return reportRepository.findById(id)
                 .orElseThrow(() -> new ReportNotFoundException("Data not found"));
     }
 
     public Report findByChatId(Long chatId) {
-        return this.reportRepository.findByChatId(chatId);
+        return reportRepository.findByChatId(chatId);
     }
 
     public Collection<Report> findSetByChatId(Long chatId) {
-        return this.reportRepository.findSetByChatId(chatId);
+        return reportRepository.findSetByChatId(chatId);
     }
 
     public void delete(Long id) {
-        this.reportRepository.deleteById(id);
+        reportRepository.deleteById(id);
     }
 
     public List<Report> getAll() {
-        return this.reportRepository.findAll();
+        return reportRepository.findAll();
     }
 
 }
