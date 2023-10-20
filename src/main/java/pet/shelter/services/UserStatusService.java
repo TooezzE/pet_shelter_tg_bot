@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 /**
- * Сервис класса UserStatus
+ * User status service
  */
 @Service
 public class UserStatusService {

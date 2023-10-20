@@ -8,7 +8,7 @@ import pet.shelter.repository.DogAdopterRepository;
 import java.util.Collection;
 
 /**
- * Класс для владельцев собак
+ * Dogs adopters service
  **/
 @Service
 public class DogAdopterService {

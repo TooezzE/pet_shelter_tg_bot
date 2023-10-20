@@ -19,13 +19,13 @@ public class CatController {
         this.service = service;
     }
 
-    @Operation(summary = "Создание cat")
+    @Operation(summary = "Create cat")
     @PostMapping
     public Cat create(@RequestBody Cat cat) {
         return service.create(cat);
     }
 
-    @Operation(summary = "Получение cat by id")
+    @Operation(summary = "Get cat by id")
     @GetMapping("/{id}")
     public ResponseEntity<Cat> getById(@PathVariable Long id) {
         Cat cat = service.findById(id);
@@ -35,7 +35,7 @@ public class CatController {
         return ResponseEntity.ok(service.findById(id));
     }
 
-    @Operation(summary = "Обновление данных cat")
+    @Operation(summary = "Update cat info")
     @PutMapping
     public ResponseEntity<Cat> update(@PathVariable Long id, Cat cat) {
         Cat foundCat = service.create(cat);
@@ -45,14 +45,14 @@ public class CatController {
         return ResponseEntity.ok(service.update(cat));
     }
 
-    @Operation(summary = "Удаление cat by id")
+    @Operation(summary = "Delete cat by id")
     @DeleteMapping("/{id}")
     public ResponseEntity<Cat> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "Получение всех Cat")
+    @Operation(summary = "Get all cats")
     @GetMapping
     public ResponseEntity<Collection<Cat>> findAll(){
         return ResponseEntity.ok(service.findAll());

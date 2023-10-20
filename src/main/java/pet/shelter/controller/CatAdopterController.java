@@ -18,13 +18,13 @@ public class CatAdopterController {
         this.service = service;
     }
 
-    @Operation(summary = "Создание пользователя")
+    @Operation(summary = "Create user")
     @PostMapping()
     public CatAdopter create(@RequestBody CatAdopter catAdopters) {
         return service.createAdopter(catAdopters);
     }
 
-    @Operation(summary = "Получение пользователя по id")
+    @Operation(summary = "Get user by id")
     @GetMapping("/{id}")
     public ResponseEntity<CatAdopter> findAdopter(@PathVariable Long id) {
         CatAdopter owners = service.findAdopter(id);
@@ -34,7 +34,7 @@ public class CatAdopterController {
         return ResponseEntity.ok(service.findAdopter(id));
     }
 
-    @Operation(summary = "Обновление данных пользователя")
+    @Operation(summary = "Update user info")
     @PutMapping
     public ResponseEntity<CatAdopter> update(@RequestBody CatAdopter catAdopters) {
         CatAdopter foundAdopters = service.createAdopter(catAdopters);
@@ -44,22 +44,22 @@ public class CatAdopterController {
         return ResponseEntity.ok(service.updateAdopter(catAdopters));
     }
 
-    @Operation(summary = "Удаление пользователей по id")
+    @Operation(summary = "Delete user by id")
     @DeleteMapping("/{id}")
     public ResponseEntity<CatAdopter> delete(@PathVariable Long id) {
         service.deleteAdopter(id);
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "Получение всех пользователей")
+    @Operation(summary = "Get all users")
     @GetMapping("/all")
     public ResponseEntity<Collection<CatAdopter>> getAll() {
         return ResponseEntity.ok(service.getAll());
     }
 
-    @Operation(summary = "Получение всех пользователей")
-    @GetMapping("/chat")
-    public ResponseEntity<Collection<CatAdopter>> getByChatId(Long chatId) {
+    @Operation(summary = "Get users by chat id")
+    @GetMapping("/chat/{chatId}")
+    public ResponseEntity<Collection<CatAdopter>> getByChatId(@PathVariable Long chatId) {
         if (chatId != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

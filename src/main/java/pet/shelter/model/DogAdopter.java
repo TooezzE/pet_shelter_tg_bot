@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * Класс для владельцев собак
+ * Dog's adopter class
  **/
 @Entity
 @Table(name = "dog_adopters")

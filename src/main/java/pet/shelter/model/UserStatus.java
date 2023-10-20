@@ -5,7 +5,7 @@ import pet.shelter.command.ShelterType;
 import javax.persistence.*;
 
 /**
- * Класс для отслеживания состояния пользователя в приюте
+ * Class to check user state in shelter
  */
 @Entity
 @Table(name = "user_status")

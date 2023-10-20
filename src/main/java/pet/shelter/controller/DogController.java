@@ -19,13 +19,13 @@ public class DogController {
         this.service = service;
     }
 
-    @Operation(summary = "Создание dog")
+    @Operation(summary = "Create dog")
     @PostMapping
     public Dog create(@RequestBody Dog dog) {
         return service.create(dog);
     }
 
-    @Operation(summary = "Получение dog by id")
+    @Operation(summary = "Get dog by id")
     @GetMapping("/{id}")
     public ResponseEntity<Dog> getById(@PathVariable Long id) {
         Dog dog = service.findById(id);
@@ -35,7 +35,7 @@ public class DogController {
         return ResponseEntity.ok(service.findById(id));
     }
 
-    @Operation(summary = "Обновление данных dog")
+    @Operation(summary = "Update dog info")
     @PutMapping
     public ResponseEntity<Dog> update(@PathVariable Long id, Dog dog) {
         Dog foundDog = service.create(dog);
@@ -45,14 +45,14 @@ public class DogController {
         return ResponseEntity.ok(service.update(dog));
     }
 
-    @Operation(summary = "Удаление dog by id")
+    @Operation(summary = "Delete dog by id")
     @DeleteMapping("/{id}")
     public ResponseEntity<Dog> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "Получение всех Dog")
+    @Operation(summary = "Get all dogs")
     @GetMapping
     public ResponseEntity<Collection<Dog>> findAll(){
         return ResponseEntity.ok(service.findAll());

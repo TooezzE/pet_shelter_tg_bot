@@ -13,7 +13,7 @@ import pet.shelter.command.ShelterCommand;
 import static pet.shelter.command.ShelterCommand.*;
 
 /**
- * Класс  меню для пользователя в виде клавиатуры
+ * Users keyboard menu class
  */
 @Component
 public class KeyBoard {
@@ -27,7 +27,7 @@ public class KeyBoard {
     }
 
     /**
-     * Метод принимает клавиатуру и текст, и отправляет ответ в чат по "chatId".
+     * Method get keyboard and message and send response to chat by "chatId".
      */
     public void sendMenu(Long chatId, ReplyKeyboardMarkup replyKeyboardMarkup, String message) {
         SendMessage sendMessage = new SendMessage(chatId, message).replyMarkup(replyKeyboardMarkup.resizeKeyboard(true));
@@ -39,7 +39,7 @@ public class KeyBoard {
     }
 
     /**
-     * Метод главного меню приюта.
+     * Shelter main menu method
      */
     public void shelterMenu(Long chatId) {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(
@@ -51,7 +51,7 @@ public class KeyBoard {
     }
 
     /**
-     * Метод отображает меню, с информацией о приюте.
+     * Method show menu with main shelter info.
      */
     public void shelterInfoMenu(Long chatId) {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(
@@ -64,7 +64,7 @@ public class KeyBoard {
     }
 
     /**
-     * Метод меню с выбором приюта.
+     * Method shows menu to choose shelter type.
      */
     public void chooseShelter(Long chatId) {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(
@@ -74,7 +74,7 @@ public class KeyBoard {
     }
 
     /**
-     * Метод меню, с информацией о том, как взять питомца из приюта.
+     * Method shows menu with info how to adopt pet.
      */
     public void howToTakeAnAnimalFromShelter(Long chatId) {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * Класс  собак
+ * Dog class
  */
 @Entity
 @Table(name = "dogs")

@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Класс для работы с сущностями отчетов
+ * Reports service class
  **/
 @Service
 @Transactional
