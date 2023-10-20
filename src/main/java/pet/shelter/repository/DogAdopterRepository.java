@@ -7,7 +7,7 @@ import pet.shelter.model.DogAdopter;
 import java.util.Set;
 
 @Repository
-public interface DogOwnerRepository extends JpaRepository<DogAdopter,Long> {
+public interface DogAdopterRepository extends JpaRepository<DogAdopter,Long> {
 
-    Set<DogAdopter> findDogOwnerByChatId(Long chatId);
+    Set<DogAdopter> findDogAdopterByChatId(Long chatId);
 }

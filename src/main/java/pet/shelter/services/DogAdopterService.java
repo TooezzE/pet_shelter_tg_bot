@@ -1,9 +1,9 @@
 package pet.shelter.services;
 
 import org.springframework.stereotype.Service;
-import pet.shelter.exceptions.DogOwnersNotFoundException;
+import pet.shelter.exceptions.DogAdoptersNotFoundException;
 import pet.shelter.model.DogAdopter;
-import pet.shelter.repository.DogOwnerRepository;
+import pet.shelter.repository.DogAdopterRepository;
 
 import java.util.Collection;
 
@@ -13,32 +13,32 @@ import java.util.Collection;
 @Service
 public class DogAdopterService {
 
-    private final DogOwnerRepository dogOwnerRepository;
+    private final DogAdopterRepository dogAdopterRepository;
 
-    public DogAdopterService(DogOwnerRepository dogOwnerRepository) {
-        this.dogOwnerRepository = dogOwnerRepository;
+    public DogAdopterService(DogAdopterRepository dogAdopterRepository) {
+        this.dogAdopterRepository = dogAdopterRepository;
     }
-    public DogAdopter findOwner(Long id) {
-        return this.dogOwnerRepository.findById(id)
-                .orElseThrow(() -> new DogOwnersNotFoundException("Person not found"));
+    public DogAdopter findAdopter(Long id) {
+        return this.dogAdopterRepository.findById(id)
+                .orElseThrow(() -> new DogAdoptersNotFoundException("Person not found"));
     }
-    public DogAdopter createOwner(DogAdopter dogAdopter) {
-        return this.dogOwnerRepository.save(dogAdopter);
+    public DogAdopter createAdopter(DogAdopter dogAdopter) {
+        return this.dogAdopterRepository.save(dogAdopter);
     }
-    public DogAdopter updateOwner(DogAdopter dogAdopter) {
-        if (dogAdopter.getId() != null && findOwner(dogAdopter.getId()) != null) {
-            return dogOwnerRepository.save(dogAdopter);
+    public DogAdopter updateAdopter(DogAdopter dogAdopter) {
+        if (dogAdopter.getId() != null && findAdopter(dogAdopter.getId()) != null) {
+            return dogAdopterRepository.save(dogAdopter);
         }
-        throw new DogOwnersNotFoundException("Person not found");
+        throw new DogAdoptersNotFoundException("Person not found");
     }
-    public void deleteOwner(Long id) {
-        this.dogOwnerRepository.deleteById(id);
+    public void deleteAdopter(Long id) {
+        this.dogAdopterRepository.deleteById(id);
     }
     public Collection<DogAdopter> getAll() {
-        return this.dogOwnerRepository.findAll();
+        return this.dogAdopterRepository.findAll();
     }
     public Collection<DogAdopter> getByChatId(Long chatId) {
-        return this.dogOwnerRepository.findDogOwnerByChatId(chatId);
+        return this.dogAdopterRepository.findDogAdopterByChatId(chatId);
     }
 
 }
