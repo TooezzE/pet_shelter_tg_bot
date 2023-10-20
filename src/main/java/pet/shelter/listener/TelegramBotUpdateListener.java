@@ -67,7 +67,7 @@ public class TelegramBotUpdateListener implements UpdatesListener {
     }
 
     /**
-     * Метод который принимает текст сообщения пользователя и сравнивает со значениями класса ShelterCommand.
+     * Method parse user message and compare text with ShelterCommand enum.
      */
     public static ShelterCommand shelterCommand(String buttonCommand) {
         ShelterCommand[] values = ShelterCommand.values();
@@ -80,7 +80,7 @@ public class TelegramBotUpdateListener implements UpdatesListener {
     }
 
     /**
-     * Метод который отправляет текстовые сообщения.
+     * Method sends message to user
      */
     public void sendMessage(Long chatId, String message) {
         SendMessage sendMessage = new SendMessage(chatId, message);
@@ -91,7 +91,7 @@ public class TelegramBotUpdateListener implements UpdatesListener {
     }
 
     /**
-     * Метод переадресации сообщения волонтеру
+     * Method to call volunteer
      */
     public void sendVolunteerMessage(Long chatId, int messageId) {
         ForwardMessage forwardMessage = new ForwardMessage(volunteerChatId, chatId, messageId);
@@ -102,7 +102,7 @@ public class TelegramBotUpdateListener implements UpdatesListener {
     }
 
     /**
-     * Метод для разделения описания под фото для добавления полученного текста в отчет.
+     * Method to divide photo description to add text into report
      */
     private List<String> splitCaption(String caption) {
         if (caption == null || caption.isBlank()) {
@@ -117,7 +117,7 @@ public class TelegramBotUpdateListener implements UpdatesListener {
     }
 
     /**
-     * Метод для получения отчета и отправки далее его волонтеру.
+     * Method to get report and send it to volunteer.
      */
     public void getReportAndSendVolunteer(Message message, String nameAnimal) {
         PhotoSize photo = message.photo()[0];
@@ -151,7 +151,7 @@ public class TelegramBotUpdateListener implements UpdatesListener {
     }
 
     /**
-     * Метод который отслеживает и организовывает процесс общения с пользователем.
+     * Method controlling process of communication with user.
      */
     @Override
     public int process(List<Update> updates) {
@@ -180,10 +180,10 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                             if (userStatusService.getByChatId(chatId).isPresent()) {
                                 UserStatus userStatus = userStatusService.getByChatId(chatId).get();
                                 if (userStatus.getCatAdopter() == null) {
-                                    CatAdopter catOwner = new CatAdopter();
-                                    catOwner.setChatId(chatId);
-                                    catAdopterService.createOwner(catOwner);
-                                    userStatus.setCatAdopter(catOwner);
+                                    CatAdopter catAdopter = new CatAdopter();
+                                    catAdopter.setChatId(chatId);
+                                    catAdopterService.createAdopter(catAdopter);
+                                    userStatus.setCatAdopter(catAdopter);
                                 }
                                 userStatus.setShelterType(ShelterType.CAT);
                                 userStatusService.saveUserStatus(userStatus);
@@ -195,10 +195,10 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                             if (userStatusService.getByChatId(chatId).isPresent()) {
                                 UserStatus context = userStatusService.getByChatId(chatId).get();
                                 if (context.getDogAdopter() == null) {
-                                    DogAdopter dogOwner = new DogAdopter();
-                                    dogOwner.setChatId(chatId);
-                                    dogAdopterService.createOwner(dogOwner);
-                                    context.setDogAdopter(dogOwner);
+                                    DogAdopter dogAdopter = new DogAdopter();
+                                    dogAdopter.setChatId(chatId);
+                                    dogAdopterService.createAdopter(dogAdopter);
+                                    context.setDogAdopter(dogAdopter);
                                 }
                                 context.setShelterType(ShelterType.DOG);
                                 userStatusService.saveUserStatus(context);
@@ -307,16 +307,16 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                     UserStatus context = userStatusService.getByChatId(chatId).get();
                     if (context.getShelterType().equals(
                             ShelterType.CAT) && update.message() != null && contact != null) {
-                        CatAdopter catOwner = context.getCatAdopter();
-                        catOwner.setPhoneNumber(contact.phoneNumber());
-                        catOwner.setName(contact.firstName());
-                        catAdopterService.updateOwner(catOwner);
+                        CatAdopter catAdopter = context.getCatAdopter();
+                        catAdopter.setPhoneNumber(contact.phoneNumber());
+                        catAdopter.setName(contact.firstName());
+                        catAdopterService.updateAdopter(catAdopter);
                     } else if (context.getShelterType().equals(
                             ShelterType.DOG) && update.message() != null && contact != null) {
-                        DogAdopter dogOwner = context.getDogAdopter();
-                        dogOwner.setPhoneNumber(contact.phoneNumber());
-                        dogOwner.setName(contact.firstName());
-                        dogAdopterService.updateOwner(dogOwner);
+                        DogAdopter dogAdopter = context.getDogAdopter();
+                        dogAdopter.setPhoneNumber(contact.phoneNumber());
+                        dogAdopter.setName(contact.firstName());
+                        dogAdopterService.updateAdopter(dogAdopter);
                     }
                     sendVolunteerMessage(chatId, messageId);
                     sendMessage(chatId, "Ваши контактные данные успешно добавлены");
@@ -378,7 +378,7 @@ public class TelegramBotUpdateListener implements UpdatesListener {
     }
 
     /**
-     * Метод контроля отправки отчетов в нужное время
+     * Method controls reports scheduling in the right time.
      */
     @Scheduled(cron = "@daily")
     public void sendWarning() {
