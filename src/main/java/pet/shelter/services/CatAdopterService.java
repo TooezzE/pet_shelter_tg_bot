@@ -1,9 +1,9 @@
 package pet.shelter.services;
 
 import org.springframework.stereotype.Service;
-import pet.shelter.exceptions.CatOwnersNotFoundException;
+import pet.shelter.exceptions.CatAdoptersNotFoundException;
 import pet.shelter.model.CatAdopter;
-import pet.shelter.repository.CatOwnerRepository;
+import pet.shelter.repository.CatAdopterRepository;
 
 import java.util.Collection;
 
@@ -13,32 +13,32 @@ import java.util.Collection;
 @Service
 public class CatAdopterService {
 
-    private final CatOwnerRepository catOwnerRepository;
+    private final CatAdopterRepository catAdopterRepository;
 
-    public CatAdopterService(CatOwnerRepository catOwnerRepository) {
-        this.catOwnerRepository = catOwnerRepository;
+    public CatAdopterService(CatAdopterRepository catAdopterRepository) {
+        this.catAdopterRepository = catAdopterRepository;
     }
-    public CatAdopter findOwner(Long id) {
-        return this.catOwnerRepository.findById(id)
-                .orElseThrow(() -> new CatOwnersNotFoundException("Person not found"));
+    public CatAdopter findAdopter(Long id) {
+        return this.catAdopterRepository.findById(id)
+                .orElseThrow(() -> new CatAdoptersNotFoundException("Person not found"));
     }
-    public CatAdopter createOwner(CatAdopter catAdopter) {
-                return this.catOwnerRepository.save(catAdopter);
+    public CatAdopter createAdopter(CatAdopter catAdopter) {
+                return this.catAdopterRepository.save(catAdopter);
     }
-    public CatAdopter updateOwner(CatAdopter catAdopter) {
-               if (catAdopter.getId() != null && findOwner(catAdopter.getId()) != null) {
-            return catOwnerRepository.save(catAdopter);
+    public CatAdopter updateAdopter(CatAdopter catAdopter) {
+               if (catAdopter.getId() != null && findAdopter(catAdopter.getId()) != null) {
+            return catAdopterRepository.save(catAdopter);
         }
-        throw new CatOwnersNotFoundException("Person not found");
+        throw new CatAdoptersNotFoundException("Person not found");
     }
-    public void deleteOwner(Long id) {
-               this.catOwnerRepository.deleteById(id);
+    public void deleteAdopter(Long id) {
+               this.catAdopterRepository.deleteById(id);
     }
     public Collection<CatAdopter> getAll() {
-               return this.catOwnerRepository.findAll();
+               return this.catAdopterRepository.findAll();
     }
     public Collection<CatAdopter> getByChatId(Long chatId) {
-               return this.catOwnerRepository.findCatOwnerByChatId(chatId);
+               return this.catAdopterRepository.findCatAdopterByChatId(chatId);
     }
 
 
