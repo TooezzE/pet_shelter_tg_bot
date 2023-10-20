@@ -1,11 +1,13 @@
 package pet.shelter.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pet.shelter.model.DogOwners;
+import org.springframework.stereotype.Repository;
+import pet.shelter.model.DogAdopter;
 
 import java.util.Set;
 
-public interface DogOwnerRepository extends JpaRepository<DogOwners,Long> {
+@Repository
+public interface DogOwnerRepository extends JpaRepository<DogAdopter,Long> {
 
-    Set<DogOwners> findDogOwnerByChatId(Long chatId);
+    Set<DogAdopter> findDogOwnerByChatId(Long chatId);
 }

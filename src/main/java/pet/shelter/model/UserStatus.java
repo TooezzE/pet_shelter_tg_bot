@@ -1,28 +1,26 @@
 package pet.shelter.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import pet.shelter.command.ShelterType;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  * Класс для отслеживания состояния пользователя в приюте
  */
 @Entity
+@Table(name = "user_status")
 public class UserStatus {
 
     @Id
+    @Column(name = "chat_id")
     private Long chatId;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
+    @Column(name = "shelter_type")
     private ShelterType shelterType;
     @OneToOne
-    private CatOwners catOwner;
+    private CatAdopter catAdopter;
     @OneToOne
-    private DogOwners dogOwner;
+    private DogAdopter dogAdopter;
 
     public UserStatus(Long chatId, ShelterType shelterType) {
         this.chatId = chatId;
@@ -48,19 +46,19 @@ public class UserStatus {
         this.shelterType = shelterType;
     }
 
-    public CatOwners getCatOwner() {
-        return catOwner;
+    public CatAdopter getCatAdopter() {
+        return catAdopter;
     }
 
-    public void setCatOwner(CatOwners catOwner) {
-        this.catOwner = catOwner;
+    public void setCatAdopter(CatAdopter catAdopter) {
+        this.catAdopter = catAdopter;
     }
 
-    public DogOwners getDogOwner() {
-        return dogOwner;
+    public DogAdopter getDogAdopter() {
+        return dogAdopter;
     }
 
-    public void setDogOwner(DogOwners dogOwner) {
-        this.dogOwner = dogOwner;
+    public void setDogAdopter(DogAdopter dogAdopter) {
+        this.dogAdopter = dogAdopter;
     }
 }

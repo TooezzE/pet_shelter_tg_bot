@@ -1,29 +1,28 @@
 package pet.shelter.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * Класс  собак
  */
 @Entity
+@Table(name = "dogs")
 public class Dog {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String animalBreed;
-    private int yearOfBirth;
+    private String breed;
+    private int birthday;
+    @Column(name = "description")
     private String descriptionOfThePet;
 
-    public Dog(Long id, String name, String animalBreed, int yearOfBirth, String descriptionOfThePet) {
-        this.id = id;
+    public Dog(String name, String breed, int birthday, String descriptionOfThePet) {
         this.name = name;
-        this.animalBreed = animalBreed;
-        this.yearOfBirth = yearOfBirth;
+        this.breed = breed;
+        this.birthday = birthday;
         this.descriptionOfThePet = descriptionOfThePet;
     }
 
@@ -34,9 +33,6 @@ public class Dog {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -46,20 +42,12 @@ public class Dog {
         this.name = name;
     }
 
-    public String getAnimalBreed() {
-        return animalBreed;
+    public String getBreed() {
+        return breed;
     }
 
-    public void setAnimalBreed(String animalBreed) {
-        this.animalBreed = animalBreed;
-    }
-
-    public int getYearOfBirth() {
-        return yearOfBirth;
-    }
-
-    public void setYearOfBirth(int yearOfBirth) {
-        this.yearOfBirth = yearOfBirth;
+    public int getBirthday() {
+        return birthday;
     }
 
     public String getDescriptionOfThePet() {
@@ -75,12 +63,12 @@ public class Dog {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dog dog = (Dog) o;
-        return yearOfBirth == dog.yearOfBirth && Objects.equals(id, dog.id) && Objects.equals(name, dog.name) && Objects.equals(animalBreed, dog.animalBreed) && Objects.equals(descriptionOfThePet, dog.descriptionOfThePet);
+        return birthday == dog.birthday && Objects.equals(id, dog.id) && Objects.equals(name, dog.name) && Objects.equals(breed, dog.breed) && Objects.equals(descriptionOfThePet, dog.descriptionOfThePet);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, animalBreed, yearOfBirth, descriptionOfThePet);
+        return Objects.hash(id, name, breed, birthday, descriptionOfThePet);
     }
 
     @Override
@@ -88,8 +76,8 @@ public class Dog {
         return "Dog{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", animalBreed='" + animalBreed + '\'' +
-                ", yearOfBirth=" + yearOfBirth +
+                ", animalBreed='" + breed + '\'' +
+                ", yearOfBirth=" + birthday +
                 ", descriptionOfThePet='" + descriptionOfThePet + '\'' +
                 '}';
     }

@@ -1,29 +1,28 @@
 package pet.shelter.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * Класс  котов
  */
 @Entity
+@Table(name = "cats")
 public class Cat {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String animalBreed;
-    private int yearOfBirth;
+    private String breed;
+    private int birthday;
+    @Column(name = "description")
     private String descriptionOfThePet;
 
-    public Cat(Long id, String name, String animalBreed, int yearOfBirth, String descriptionOfThePet) {
-        this.id = id;
+    public Cat(String name, String breed, int birthday, String descriptionOfThePet) {
         this.name = name;
-        this.animalBreed = animalBreed;
-        this.yearOfBirth = yearOfBirth;
+        this.breed = breed;
+        this.birthday = birthday;
         this.descriptionOfThePet = descriptionOfThePet;
     }
 
@@ -34,10 +33,6 @@ public class Cat {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -46,21 +41,14 @@ public class Cat {
         this.name = name;
     }
 
-    public String getAnimalBreed() {
-        return animalBreed;
+    public String getBreed() {
+        return breed;
     }
 
-    public void setAnimalBreed(String animalBreed) {
-        this.animalBreed = animalBreed;
+    public int getBirthday() {
+        return birthday;
     }
 
-    public int getYearOfBirth() {
-        return yearOfBirth;
-    }
-
-    public void setYearOfBirth(int yearOfBirth) {
-        this.yearOfBirth = yearOfBirth;
-    }
 
     public String getDescriptionOfThePet() {
         return descriptionOfThePet;
@@ -75,12 +63,12 @@ public class Cat {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cat cat = (Cat) o;
-        return yearOfBirth == cat.yearOfBirth && Objects.equals(id, cat.id) && Objects.equals(name, cat.name) && Objects.equals(animalBreed, cat.animalBreed) && Objects.equals(descriptionOfThePet, cat.descriptionOfThePet);
+        return birthday == cat.birthday && Objects.equals(id, cat.id) && Objects.equals(name, cat.name) && Objects.equals(breed, cat.breed) && Objects.equals(descriptionOfThePet, cat.descriptionOfThePet);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, animalBreed, yearOfBirth, descriptionOfThePet);
+        return Objects.hash(id, name, breed, birthday, descriptionOfThePet);
     }
 
     @Override
@@ -88,8 +76,8 @@ public class Cat {
         return "Cat{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", animalBreed='" + animalBreed + '\'' +
-                ", yearOfBirth=" + yearOfBirth +
+                ", animalBreed='" + breed + '\'' +
+                ", yearOfBirth=" + birthday +
                 ", descriptionOfThePet='" + descriptionOfThePet + '\'' +
                 '}';
     }

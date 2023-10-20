@@ -8,8 +8,8 @@ import java.util.Objects;
  * Класс для владельцев собак
  **/
 @Entity
-@Table(name = "dog_owners")
-public class DogOwners {
+@Table(name = "dog_adopters")
+public class DogAdopter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,14 +19,14 @@ public class DogOwners {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "yearOfBirth")
-    private int yearOfBirth;
+    @Column(name = "birthday")
+    private int birthday;
 
     @Column(name = "phone")
     private String phoneNumber;
 
-    @Column(name = "mail")
-    private String mail;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "address")
     private String address;
@@ -38,32 +38,26 @@ public class DogOwners {
     @JoinColumn(name = "dog_id", referencedColumnName = "id")
     private Dog dog;
 
-    public DogOwners(Long id, String name, Long chatId) {
-        this.id = id;
+    public DogAdopter(String name, Long chatId) {
         this.name = name;
         this.chatId = chatId;
     }
 
-    public DogOwners(Long id, String name, int yearOfBirth, String phoneNumber, String mail, String address, Long chatId, Dog dog) {
-        this.id = id;
+    public DogAdopter(String name, int birthday, String phoneNumber, String email, String address, Long chatId, Dog dog) {
         this.name = name;
-        this.yearOfBirth = yearOfBirth;
+        this.birthday = birthday;
         this.phoneNumber = phoneNumber;
-        this.mail = mail;
+        this.email = email;
         this.address = address;
         this.chatId = chatId;
         this.dog = dog;
     }
 
-    public DogOwners() {
+    public DogAdopter() {
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -74,12 +68,8 @@ public class DogOwners {
         this.name = name;
     }
 
-    public int getYearOfBirth() {
-        return yearOfBirth;
-    }
-
-    public void setYearOfBirth(int yearOfBirth) {
-        this.yearOfBirth = yearOfBirth;
+    public int getBirthday() {
+        return birthday;
     }
 
     public String getPhoneNumber() {
@@ -90,12 +80,12 @@ public class DogOwners {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAddress() {
@@ -126,8 +116,8 @@ public class DogOwners {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DogOwners dogOwners = (DogOwners) o;
-        return Objects.equals(id, dogOwners.id) && Objects.equals(name, dogOwners.name) && Objects.equals(chatId, dogOwners.chatId) && Objects.equals(dog, dogOwners.dog);
+        DogAdopter dogAdopter = (DogAdopter) o;
+        return Objects.equals(id, dogAdopter.id) && Objects.equals(name, dogAdopter.name) && Objects.equals(chatId, dogAdopter.chatId) && Objects.equals(dog, dogAdopter.dog);
     }
 
     @Override

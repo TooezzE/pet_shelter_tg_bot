@@ -4,16 +4,19 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "report")
 public class Report {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "chat_id")
     private Long chatId;
     private String name;
     private String nutrition;
     private String health;
     private String behaviour;
+    @Column(name = "last_message")
     private Date lastMessage;
     @Lob
     private byte[] data;

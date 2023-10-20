@@ -16,12 +16,12 @@ import org.springframework.stereotype.Component;
 import pet.shelter.command.ShelterCommand;
 import pet.shelter.command.ShelterType;
 import pet.shelter.keyboard.KeyBoard;
-import pet.shelter.model.CatOwners;
-import pet.shelter.model.DogOwners;
+import pet.shelter.model.CatAdopter;
+import pet.shelter.model.DogAdopter;
 import pet.shelter.model.Report;
 import pet.shelter.model.UserStatus;
-import pet.shelter.services.CatOwnerService;
-import pet.shelter.services.DogOwnerService;
+import pet.shelter.services.CatAdopterService;
+import pet.shelter.services.DogAdopterService;
 import pet.shelter.services.ReportService;
 import pet.shelter.services.UserStatusService;
 
@@ -44,20 +44,20 @@ public class TelegramBotUpdateListener implements UpdatesListener {
     private final TelegramBot telegramBot;
     private final KeyBoard keyBoard;
     private final UserStatusService userStatusService;
-    private final CatOwnerService catOwnerService;
-    private final DogOwnerService dogOwnerService;
+    private final CatAdopterService catAdopterService;
+    private final DogAdopterService dogAdopterService;
     private final ReportService reportService;
     @Value("${volunteer-chatId}")
     private Long volunteerChatId;
 
     public TelegramBotUpdateListener(TelegramBot telegramBot, KeyBoard keyBoard,
-                                     UserStatusService userStatusService, CatOwnerService catOwnerService,
-                                     DogOwnerService dogOwnerService, ReportService reportService) {
+                                     UserStatusService userStatusService, CatAdopterService catAdopterService,
+                                     DogAdopterService dogAdopterService, ReportService reportService) {
         this.telegramBot = telegramBot;
         this.keyBoard = keyBoard;
         this.userStatusService = userStatusService;
-        this.catOwnerService = catOwnerService;
-        this.dogOwnerService = dogOwnerService;
+        this.catAdopterService = catAdopterService;
+        this.dogAdopterService = dogAdopterService;
         this.reportService = reportService;
     }
 
@@ -145,6 +145,7 @@ public class TelegramBotUpdateListener implements UpdatesListener {
             sendVolunteerMessage(chatId, message.messageId());
             sendMessage(chatId, "Отчет принят!");
         } catch (IOException e) {
+            e.printStackTrace();
             System.out.println("Произошла ошибка загрузки файла!");
         }
     }
@@ -178,11 +179,11 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                         case CAT -> {
                             if (userStatusService.getByChatId(chatId).isPresent()) {
                                 UserStatus userStatus = userStatusService.getByChatId(chatId).get();
-                                if (userStatus.getCatOwner() == null) {
-                                    CatOwners catOwner = new CatOwners();
+                                if (userStatus.getCatAdopter() == null) {
+                                    CatAdopter catOwner = new CatAdopter();
                                     catOwner.setChatId(chatId);
-                                    catOwnerService.createOwner(catOwner);
-                                    userStatus.setCatOwner(catOwner);
+                                    catAdopterService.createOwner(catOwner);
+                                    userStatus.setCatAdopter(catOwner);
                                 }
                                 userStatus.setShelterType(ShelterType.CAT);
                                 userStatusService.saveUserStatus(userStatus);
@@ -193,11 +194,11 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                         case DOG -> {
                             if (userStatusService.getByChatId(chatId).isPresent()) {
                                 UserStatus context = userStatusService.getByChatId(chatId).get();
-                                if (context.getDogOwner() == null) {
-                                    DogOwners dogOwner = new DogOwners();
+                                if (context.getDogAdopter() == null) {
+                                    DogAdopter dogOwner = new DogAdopter();
                                     dogOwner.setChatId(chatId);
-                                    dogOwnerService.createOwner(dogOwner);
-                                    context.setDogOwner(dogOwner);
+                                    dogAdopterService.createOwner(dogOwner);
+                                    context.setDogAdopter(dogOwner);
                                 }
                                 context.setShelterType(ShelterType.DOG);
                                 userStatusService.saveUserStatus(context);
@@ -306,16 +307,16 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                     UserStatus context = userStatusService.getByChatId(chatId).get();
                     if (context.getShelterType().equals(
                             ShelterType.CAT) && update.message() != null && contact != null) {
-                        CatOwners catOwner = context.getCatOwner();
+                        CatAdopter catOwner = context.getCatAdopter();
                         catOwner.setPhoneNumber(contact.phoneNumber());
                         catOwner.setName(contact.firstName());
-                        catOwnerService.updateOwner(catOwner);
+                        catAdopterService.updateOwner(catOwner);
                     } else if (context.getShelterType().equals(
                             ShelterType.DOG) && update.message() != null && contact != null) {
-                        DogOwners dogOwner = context.getDogOwner();
+                        DogAdopter dogOwner = context.getDogAdopter();
                         dogOwner.setPhoneNumber(contact.phoneNumber());
                         dogOwner.setName(contact.firstName());
-                        dogOwnerService.updateOwner(dogOwner);
+                        dogAdopterService.updateOwner(dogOwner);
                     }
                     sendVolunteerMessage(chatId, messageId);
                     sendMessage(chatId, "Ваши контактные данные успешно добавлены");
@@ -341,13 +342,13 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                         if (compareTime != numberOfDay) {
                             UserStatus context = userStatusService.getByChatId(chatId).get();
                             if (context.getShelterType().equals(ShelterType.CAT)
-                                && context.getCatOwner().getCat() != null) {
-                                String petName = context.getCatOwner().getCat().getName();
+                                && context.getCatAdopter().getCat() != null) {
+                                String petName = context.getCatAdopter().getCat().getName();
                                 getReportAndSendVolunteer(message, petName);
                                 daysOfReports++;
                             } else if (context.getShelterType().equals(ShelterType.DOG)
-                                       && context.getDogOwner().getDog() != null) {
-                                String petName = context.getDogOwner().getDog().getName();
+                                       && context.getDogAdopter().getDog() != null) {
+                                String petName = context.getDogAdopter().getDog().getName();
                                 getReportAndSendVolunteer(message, petName);
                                 daysOfReports++;
                             } else {
