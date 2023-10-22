@@ -207,7 +207,7 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                             }
                         }
                         case MENU -> {
-                            keyBoard.shelterInfoMenu(chatId);
+                            keyBoard.shelterMenu(chatId);
                         }
                         case SHELTER_INFO -> {
                             keyBoard.shelterInfoMenu(chatId);

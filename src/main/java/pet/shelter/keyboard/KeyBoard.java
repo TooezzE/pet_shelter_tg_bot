@@ -68,7 +68,7 @@ public class KeyBoard {
      */
     public void chooseShelter(Long chatId) {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(
-                CAT.getCommand(), DOG.getCommand()
+                ShelterCommand.CAT.getCommand(), ShelterCommand.DOG.getCommand()
         );
         sendMenu(chatId, replyKeyboardMarkup, "Здесь вы можете выбрать приют");
     }
