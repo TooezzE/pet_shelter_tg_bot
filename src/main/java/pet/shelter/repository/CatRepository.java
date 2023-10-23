@@ -6,4 +6,5 @@ import pet.shelter.model.Cat;
 
 @Repository
 public interface CatRepository extends JpaRepository<Cat, Long> {
+    Cat findCatByName(String name);
 }
