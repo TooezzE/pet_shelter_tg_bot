@@ -7,8 +7,15 @@ import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.SendResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pet.shelter.command.ShelterCommand;
+import pet.shelter.model.Cat;
+import pet.shelter.model.Dog;
+import pet.shelter.repository.CatRepository;
+import pet.shelter.repository.DogRepository;
+
+import java.util.List;
 
 import static pet.shelter.command.ShelterCommand.*;
 
@@ -19,6 +26,11 @@ import static pet.shelter.command.ShelterCommand.*;
 public class KeyBoard {
 
     private final Logger logger = LoggerFactory.getLogger(KeyBoard.class);
+
+    @Autowired
+    private CatRepository catRepository;
+    @Autowired
+    private DogRepository dogRepository;
 
     private TelegramBot telegramBot;
 
@@ -44,6 +56,7 @@ public class KeyBoard {
     public void shelterMenu(Long chatId) {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(
                 new String[]{SHELTER_INFO.getCommand(), HOW_ADOPT_ANIMAL_INFO.getCommand()},
+                new String[]{ADOPT_ANIMAL.getCommand()},
                 new String[]{SEND_REPORT.getCommand(), VOLUNTEER.getCommand()}
         );
         sendMenu(chatId, replyKeyboardMarkup, "Главное меню приюта. \n" +
@@ -71,6 +84,22 @@ public class KeyBoard {
                 ShelterCommand.CAT.getCommand(), ShelterCommand.DOG.getCommand()
         );
         sendMenu(chatId, replyKeyboardMarkup, "Здесь вы можете выбрать приют");
+    }
+
+
+    public void chooseAnimal(Long chatId, boolean isCatShelterChosen) { // метод для выбора животных из списка *не доделан*
+        String[] names;
+        if(isCatShelterChosen) {
+            names = catRepository.findAll().stream()
+                    .map(Cat::getName)
+                    .toArray(String[]::new);
+        } else {
+            names = dogRepository.findAll().stream()
+                    .map(Dog::getName)
+                    .toArray(String[]::new);
+        }
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(names);
+        sendMenu(chatId, replyKeyboardMarkup, "Выберите животное, которое хотите забрать");
     }
 
     /**

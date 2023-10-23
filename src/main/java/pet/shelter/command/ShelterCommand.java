@@ -1,5 +1,7 @@
 package pet.shelter.command;
 
+import pet.shelter.repository.CatRepository;
+
 /**
  * Класс в котором хранятся сообщения для работы с клавиатурой
  */
@@ -10,6 +12,7 @@ public enum ShelterCommand {
     MENU("Главное меню"),
     SHELTER_INFO("Информация о приюте"),
     HOW_ADOPT_ANIMAL_INFO("Как взять животного из приюта"),
+    ADOPT_ANIMAL("Взять животное"),
     VOLUNTEER("Связаться с волонтером"),
     GENERAL_SHELTER_INFO("Общая информация"),
     SHELTER_ADDRESS_SCHEDULE("Адрес и график работы приюта"),

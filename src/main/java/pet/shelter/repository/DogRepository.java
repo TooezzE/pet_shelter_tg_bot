@@ -6,4 +6,5 @@ import pet.shelter.model.Dog;
 
 @Repository
 public interface DogRepository extends JpaRepository<Dog, Long> {
+    Dog findDogByName(String name);
 }
