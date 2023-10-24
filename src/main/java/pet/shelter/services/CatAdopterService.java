@@ -13,32 +13,37 @@ import java.util.Collection;
 @Service
 public class CatAdopterService {
 
-    private final CatAdopterRepository catAdopterRepository;
+    private final CatAdopterRepository repository;
 
-    public CatAdopterService(CatAdopterRepository catAdopterRepository) {
-        this.catAdopterRepository = catAdopterRepository;
+    public CatAdopterService(CatAdopterRepository repository) {
+        this.repository = repository;
     }
     public CatAdopter findAdopter(Long id) {
-        return this.catAdopterRepository.findById(id)
-                .orElseThrow(() -> new CatAdoptersNotFoundException("Person not found"));
+        return this.repository.findById(id)
+                .orElseThrow(CatAdoptersNotFoundException::new);
     }
     public CatAdopter createAdopter(CatAdopter catAdopter) {
-                return this.catAdopterRepository.save(catAdopter);
+                return this.repository.save(catAdopter);
     }
-    public CatAdopter updateAdopter(CatAdopter catAdopter) {
-               if (catAdopter.getId() != null && findAdopter(catAdopter.getId()) != null) {
-            return catAdopterRepository.save(catAdopter);
-        }
-        throw new CatAdoptersNotFoundException("Person not found");
+    public CatAdopter updateAdopter(Long id, CatAdopter catAdopter) {
+        CatAdopter foundedAdopter = repository.findById(id).orElseThrow(CatAdoptersNotFoundException::new);
+        foundedAdopter.setCat(catAdopter.getCat());
+        foundedAdopter.setAddress(catAdopter.getAddress());
+        foundedAdopter.setChatId(catAdopter.getChatId());
+        foundedAdopter.setName(catAdopter.getName());
+        foundedAdopter.setEmail(catAdopter.getEmail());
+        foundedAdopter.setPhoneNumber(catAdopter.getPhoneNumber());
+
+        return repository.save(foundedAdopter);
     }
     public void deleteAdopter(Long id) {
-               this.catAdopterRepository.deleteById(id);
+               this.repository.deleteById(id);
     }
     public Collection<CatAdopter> getAll() {
-               return this.catAdopterRepository.findAll();
+        return repository.findAll();
     }
     public Collection<CatAdopter> getByChatId(Long chatId) {
-               return this.catAdopterRepository.findCatAdopterByChatId(chatId);
+        return repository.findCatAdopterByChatId(chatId);
     }
 
 

@@ -13,21 +13,21 @@ import java.util.Optional;
 @Service
 public class UserStatusService {
 
-    private UserStatusRepository userStatusRepository;
+    private final UserStatusRepository repository;
 
-    public UserStatusService(UserStatusRepository userStatusRepository) {
-        this.userStatusRepository = userStatusRepository;
+    public UserStatusService(UserStatusRepository repository) {
+        this.repository = repository;
     }
 
     public UserStatus saveUserStatus(UserStatus userStatus) {
-        return userStatusRepository.save(userStatus);
+        return repository.save(userStatus);
     }
 
     public Collection<UserStatus> getAll() {
-        return userStatusRepository.findAll();
+        return repository.findAll();
     }
 
     public Optional<UserStatus> getByChatId(Long chatId) {
-        return userStatusRepository.findByChatId(chatId);
+        return repository.findByChatId(chatId);
     }
 }

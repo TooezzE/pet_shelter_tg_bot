@@ -18,10 +18,10 @@ import java.util.List;
 @Transactional
 public class ReportService {
 
-    private final ReportRepository reportRepository;
+    private final ReportRepository repository;
 
-    public ReportService(ReportRepository reportRepository) {
-        this.reportRepository = reportRepository;
+    public ReportService(ReportRepository repository) {
+        this.repository = repository;
     }
 
     public void loadReport(Long chatId, String name, String nutrition
@@ -34,32 +34,32 @@ public class ReportService {
         report.setBehaviour(behaviour);
         report.setLastMessage(lastMessage);
         report.setData(dataFile);
-        this.reportRepository.save(report);
+        this.repository.save(report);
     }
 
     public Report save(Report report) {
-        return this.reportRepository.save(report);
+        return repository.save(report);
     }
 
     public Report findById(Long id) {
-        return this.reportRepository.findById(id)
-                .orElseThrow(() -> new ReportNotFoundException("Data not found"));
+        return repository.findById(id)
+                .orElseThrow(ReportNotFoundException::new);
     }
 
     public Report findByChatId(Long chatId) {
-        return this.reportRepository.findByChatId(chatId);
+        return repository.findByChatId(chatId);
     }
 
     public Collection<Report> findSetByChatId(Long chatId) {
-        return this.reportRepository.findSetByChatId(chatId);
+        return repository.findSetByChatId(chatId);
     }
 
     public void delete(Long id) {
-        this.reportRepository.deleteById(id);
+        repository.deleteById(id);
     }
 
     public List<Report> getAll() {
-        return this.reportRepository.findAll();
+        return repository.findAll();
     }
 
 }

@@ -32,17 +32,17 @@ public class CatController {
         if (cat == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(service.findById(id));
+        return ResponseEntity.ok(cat);
     }
 
     @Operation(summary = "Update cat info")
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<Cat> update(@PathVariable Long id, Cat cat) {
-        Cat foundCat = service.create(cat);
+        Cat foundCat = service.findById(id);
         if (foundCat == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        return ResponseEntity.ok(service.update(cat));
+        return ResponseEntity.ok(service.update(id, cat));
     }
 
     @Operation(summary = "Delete cat by id")

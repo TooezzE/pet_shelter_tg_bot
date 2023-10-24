@@ -24,16 +24,20 @@ public class DogService {
     }
 
     public  Dog findById(Long id) {
-        logger.info("Вызван метод поиска Dog по id", id);
+        logger.info("Вызван метод поиска Dog по id = " + id);
         return repository.findById(id).orElseThrow(DogNotFoundException::new);
     }
 
-    public Dog update(Dog dog){
+    public Dog update(Long id, Dog dog){
         logger.info("Вызван метод изменения Dog");
-        return repository.save(dog);
+        Dog foundedDog = repository.findById(id).orElseThrow(DogNotFoundException::new);
+        foundedDog.setName(dog.getName());
+        foundedDog.setDescriptionOfThePet(dog.getDescriptionOfThePet());
+
+        return repository.save(foundedDog);
     }
     public void delete(Long id){
-        logger.info("Вызван метод удаления Dog по id",id);
+        logger.info("Вызван метод удаления Dog по id = " + id);
         repository.deleteById(id);
     }
     public Collection<Dog> findAll(){
