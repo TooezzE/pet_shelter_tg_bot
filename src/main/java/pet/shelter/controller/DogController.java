@@ -36,13 +36,13 @@ public class DogController {
     }
 
     @Operation(summary = "Update dog info")
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<Dog> update(@PathVariable Long id, Dog dog) {
-        Dog foundDog = service.create(dog);
-        if (foundDog == null) {
+        Dog foundedDog = service.findById(id);
+        if (foundedDog == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        return ResponseEntity.ok(service.update(dog));
+        return ResponseEntity.ok(service.update(id, dog));
     }
 
     @Operation(summary = "Delete dog by id")

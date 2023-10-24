@@ -24,7 +24,7 @@ public class ReportController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Report> findReport(@Parameter(description = "report id") @PathVariable Long id) {
-        Report report = this.reportService.findById(id);
+        Report report = reportService.findById(id);
         if (report != null) {
             return ResponseEntity.ok(report);
         } else {
@@ -34,18 +34,18 @@ public class ReportController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReport(@Parameter(description = "report id") @PathVariable Long id) {
-        this.reportService.delete(id);
+        reportService.delete(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<Collection<Report>> getAll() {
-        return ResponseEntity.ok(this.reportService.getAll());
+        return ResponseEntity.ok(reportService.getAll());
     }
 
     @GetMapping("/{id}/photo-from-db")
     public ResponseEntity<byte[]> findPhotoFromDB(@Parameter(description = "report id") @PathVariable Long id) {
-        Report report = this.reportService.findById(id);
+        Report report = reportService.findById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(fileType));
         headers.setContentLength(report.getData().length);

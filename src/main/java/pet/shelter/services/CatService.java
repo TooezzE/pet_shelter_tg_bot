@@ -20,21 +20,24 @@ public class CatService {
     private static final Logger logger= LoggerFactory.getLogger(CatRepository.class);
 
     public Cat create(Cat cat){
-        logger.info("Вызван метод создания Cat");
+        logger.info("Вызван метод создания " + cat.getName());
         return repository.save(cat);
     }
 
     public  Cat findById(Long id){
-        logger.info("Вызван метод поиска Cat по id",id);
+        logger.info("Вызван метод поиска Cat по id = " + id);
         return repository.findById(id).orElseThrow(CatNotFoundException::new);
     }
 
-    public Cat update(Cat cat){
-        logger.info("Вызван метод изменения Cat");
-        return repository.save(cat);
+    public Cat update(Long id, Cat cat){
+        logger.info("Вызван метод изменения Cat, id = " + id);
+        Cat foundedCat = repository.findById(id).orElseThrow(CatNotFoundException::new);
+        foundedCat.setName(cat.getName());
+        foundedCat.setDescriptionOfThePet(cat.getDescriptionOfThePet());
+        return repository.save(foundedCat);
     }
     public void delete(Long id){
-        logger.info("Вызван метод удаления Cat по id",id);
+        logger.info("Вызван метод удаления Cat по id = " + id);
         repository.deleteById(id);
     }
     public Collection<Cat> findAll(){

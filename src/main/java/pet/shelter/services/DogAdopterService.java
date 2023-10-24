@@ -13,32 +13,37 @@ import java.util.Collection;
 @Service
 public class DogAdopterService {
 
-    private final DogAdopterRepository dogAdopterRepository;
+    private final DogAdopterRepository repository;
 
-    public DogAdopterService(DogAdopterRepository dogAdopterRepository) {
-        this.dogAdopterRepository = dogAdopterRepository;
+    public DogAdopterService(DogAdopterRepository repository) {
+        this.repository = repository;
     }
     public DogAdopter findAdopter(Long id) {
-        return this.dogAdopterRepository.findById(id)
-                .orElseThrow(() -> new DogAdoptersNotFoundException("Person not found"));
+        return repository.findById(id)
+                .orElseThrow(DogAdoptersNotFoundException::new);
     }
     public DogAdopter createAdopter(DogAdopter dogAdopter) {
-        return this.dogAdopterRepository.save(dogAdopter);
+        return repository.save(dogAdopter);
     }
-    public DogAdopter updateAdopter(DogAdopter dogAdopter) {
-        if (dogAdopter.getId() != null && findAdopter(dogAdopter.getId()) != null) {
-            return dogAdopterRepository.save(dogAdopter);
-        }
-        throw new DogAdoptersNotFoundException("Person not found");
+    public DogAdopter updateAdopter(Long id, DogAdopter dogAdopter) {
+        DogAdopter foundedAdopter = repository.findById(id).orElseThrow(DogAdoptersNotFoundException::new);
+        foundedAdopter.setDog(dogAdopter.getDog());
+        foundedAdopter.setChatId(dogAdopter.getChatId());
+        foundedAdopter.setName(dogAdopter.getName());
+        foundedAdopter.setAddress(dogAdopter.getAddress());
+        foundedAdopter.setPhoneNumber(dogAdopter.getPhoneNumber());
+        foundedAdopter.setEmail(dogAdopter.getEmail());
+
+        return repository.save(foundedAdopter);
     }
     public void deleteAdopter(Long id) {
-        this.dogAdopterRepository.deleteById(id);
+        repository.deleteById(id);
     }
     public Collection<DogAdopter> getAll() {
-        return this.dogAdopterRepository.findAll();
+        return repository.findAll();
     }
     public Collection<DogAdopter> getByChatId(Long chatId) {
-        return this.dogAdopterRepository.findDogAdopterByChatId(chatId);
+        return repository.findDogAdopterByChatId(chatId);
     }
 
 }

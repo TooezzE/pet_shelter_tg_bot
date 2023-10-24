@@ -27,21 +27,21 @@ public class CatAdopterController {
     @Operation(summary = "Get user by id")
     @GetMapping("/{id}")
     public ResponseEntity<CatAdopter> findAdopter(@PathVariable Long id) {
-        CatAdopter owners = service.findAdopter(id);
-        if (owners == null) {
+        CatAdopter foundedAdopter = service.findAdopter(id);
+        if (foundedAdopter == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(service.findAdopter(id));
     }
 
     @Operation(summary = "Update user info")
-    @PutMapping
-    public ResponseEntity<CatAdopter> update(@RequestBody CatAdopter catAdopters) {
-        CatAdopter foundAdopters = service.createAdopter(catAdopters);
+    @PutMapping("/{id}")
+    public ResponseEntity<CatAdopter> update(@PathVariable Long id, @RequestBody CatAdopter catAdopters) {
+        CatAdopter foundAdopters = service.findAdopter(id);
         if (foundAdopters == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        return ResponseEntity.ok(service.updateAdopter(catAdopters));
+        return ResponseEntity.ok(service.updateAdopter(id, catAdopters));
     }
 
     @Operation(summary = "Delete user by id")
@@ -60,7 +60,7 @@ public class CatAdopterController {
     @Operation(summary = "Get users by chat id")
     @GetMapping("/chat/{chatId}")
     public ResponseEntity<Collection<CatAdopter>> getByChatId(@PathVariable Long chatId) {
-        if (chatId != null) {
+        if (chatId == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(service.getByChatId(chatId));
