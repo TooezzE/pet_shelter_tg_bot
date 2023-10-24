@@ -333,13 +333,13 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                         CatAdopter catAdopter = context.getCatAdopter();
                         catAdopter.setPhoneNumber(contact.phoneNumber());
                         catAdopter.setName(contact.firstName());
-                        catAdopterService.updateAdopter(catAdopter);
+                        catAdopterService.updateAdopter(catAdopter.getId(), catAdopter);
                     } else if (context.getShelterType().equals(
                             ShelterType.DOG) && update.message() != null && contact != null) {
                         DogAdopter dogAdopter = context.getDogAdopter();
                         dogAdopter.setPhoneNumber(contact.phoneNumber());
                         dogAdopter.setName(contact.firstName());
-                        dogAdopterService.updateAdopter(dogAdopter);
+                        dogAdopterService.updateAdopter(dogAdopter.getId(), dogAdopter);
                     }
                     sendVolunteerMessage(chatId, messageId);
                     sendMessage(chatId, "Ваши контактные данные успешно добавлены");
