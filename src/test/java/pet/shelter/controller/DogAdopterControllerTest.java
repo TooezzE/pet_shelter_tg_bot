@@ -12,47 +12,41 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import pet.shelter.controller.CatAdopterController;
-import pet.shelter.controller.CatController;
-import pet.shelter.model.Cat;
-import pet.shelter.model.CatAdopter;
-import pet.shelter.repository.CatAdopterRepository;
-import pet.shelter.repository.CatRepository;
-import pet.shelter.services.CatAdopterService;
-import pet.shelter.services.CatService;
+import pet.shelter.model.Dog;
+import pet.shelter.model.DogAdopter;
+import pet.shelter.repository.DogAdopterRepository;
+import pet.shelter.services.DogAdopterService;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(CatAdopterController.class)
-public class CatAdopterControllerTest {
+@WebMvcTest(DogAdopterController.class)
+public class DogAdopterControllerTest {
     @MockBean
-    private CatAdopterRepository repository;
+    private DogAdopterRepository repository;
     @Autowired
     private MockMvc mockMvc;
     @Autowired
     ObjectMapper objectMapper;
     @MockBean
-    private CatAdopterService service;
+    private DogAdopterService service;
 
     @Test
     void create() throws Exception {
 
-        CatAdopter adopter = new CatAdopter();
+        DogAdopter adopter = new DogAdopter();
         adopter.setName("Иван");
         JSONObject object = new JSONObject();
         object.put("name", "Иван");
         Mockito.when(service.createAdopter(adopter)).thenReturn(adopter);
         mockMvc.perform(
-                        MockMvcRequestBuilders.post("/adopter-cat")
+                        MockMvcRequestBuilders.post("/adopter-dog")
                                 .content(object.toString())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
@@ -81,12 +75,13 @@ public class CatAdopterControllerTest {
         object.put("email", email);
         object.put("address", address);
         object.put("chatId", chatId);
-        CatAdopter adopter = new CatAdopter(id,name,birthday,phoneNumber,email,address,chatId,new Cat());
+        object.put("id", id);
+        DogAdopter adopter = new DogAdopter(id,name,birthday,phoneNumber,email,address,chatId,new Dog());
         adopter.setName(name);
-        when(service.updateAdopter(any(Long.class), any(CatAdopter.class))).thenReturn(adopter);
+        when(service.updateAdopter(any(Long.class), any(DogAdopter.class))).thenReturn(adopter);
         when(repository.findById(any(Long.class))).thenReturn(Optional.of(adopter));
         mockMvc.perform(
-                        put("/adopter-cat/" + adopter.getId())
+                        put("/adopter-dog/" + adopter.getId())
                                 .content(object.toString())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
@@ -96,7 +91,7 @@ public class CatAdopterControllerTest {
 
     @Test
     void remove() throws Exception {
-        mockMvc.perform(delete("/adopter-cat/{id}", 1))
+        mockMvc.perform(delete("/adopter-dog/{id}", 1))
                 .andExpect(status().isOk());
         verify(service).deleteAdopter(1L);
     }
@@ -105,8 +100,8 @@ public class CatAdopterControllerTest {
     @Test
     void getAll() throws Exception {
         when(repository.findAll()).thenReturn(List.of(
-                new CatAdopter()));
-        mockMvc.perform(MockMvcRequestBuilders.get("/adopter-cat/all")
+                new DogAdopter()));
+        mockMvc.perform(MockMvcRequestBuilders.get("/adopter-dog/all")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect((ResultMatcher) MockMvcResultMatchers.jsonPath("$").isArray());
@@ -131,10 +126,10 @@ public class CatAdopterControllerTest {
         object.put("address", address);
         object.put("chatId", chatId);
         object.put("id", id);
-        CatAdopter adopter = new CatAdopter(id,name,birthday,phoneNumber,email,address,chatId,new Cat());
+        DogAdopter adopter = new DogAdopter(id,name,birthday,phoneNumber,email,address,chatId,new Dog());
         adopter.setName(name);
         when(repository.findById(any(Long.class))).thenReturn(Optional.of(adopter));
-        mockMvc.perform(get("/adopter-cat/"+adopter.getId())
+        mockMvc.perform(get("/adopter-dog/"+adopter.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());

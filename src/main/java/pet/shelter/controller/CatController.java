@@ -37,9 +37,8 @@ public class CatController {
 
     @Operation(summary = "Update cat info")
     @PutMapping("/{id}")
-    public ResponseEntity<Cat> update(@PathVariable Long id, Cat cat) {
-        Cat foundCat = service.findById(id);
-        if (foundCat == null) {
+    public ResponseEntity<Cat> update(@PathVariable Long id, @RequestBody Cat cat) {
+        if (cat == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(service.update(id, cat));

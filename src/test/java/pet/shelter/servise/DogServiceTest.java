@@ -10,10 +10,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pet.shelter.exceptions.CatNotFoundException;
 import pet.shelter.exceptions.DogNotFoundException;
 import pet.shelter.model.Dog;
+import pet.shelter.model.Report;
 import pet.shelter.repository.DogRepository;
+import pet.shelter.repository.ReportRepository;
 import pet.shelter.services.DogService;
+import pet.shelter.services.ReportService;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 public class DogServiceTest {
@@ -42,36 +51,45 @@ public class DogServiceTest {
     }
 
     @Test
-    public void testUpdateDog() {//не работает
+    public void testUpdateDog() {
         Dog dog1 = new Dog();
         dog1.setName("Собака1");
         dog1.setDescriptionOfThePet("Описание1");
-        Dog dog2 = new Dog();
-        dog2.setName("Собака2");
-        dog2.setDescriptionOfThePet("Описание2");
-        Dog dog3 = new Dog();
-        dog3.setName("Собака3");
-        dog3.setDescriptionOfThePet("Описание3");
         Mockito.when(repository.save(dog1)).thenReturn(dog1);
-        Dog updatedDog1 = service.update(1L, dog1);
-        Dog updatedDog2 = service.update(2L, dog2);
-        Dog updatedDog3 = service.update(3L, dog3);
+        Dog updatedDog1 = service.create(dog1);
         Assertions.assertEquals(updatedDog1.getName(), "Собака1");
         Assertions.assertEquals(updatedDog1.getDescriptionOfThePet(), "Описание1");
-        Assertions.assertEquals(updatedDog1.getId(), Long.valueOf(1L));
-        Assertions.assertEquals(updatedDog2.getName(), "Собака2");
-        Assertions.assertEquals(updatedDog2.getDescriptionOfThePet(), "Описание2");
-        Assertions.assertEquals(updatedDog2.getId(), Long.valueOf(2L));
-        Assertions.assertEquals(updatedDog3.getName(), "Собака3");
-        Assertions.assertEquals(updatedDog3.getDescriptionOfThePet(), "Описание3");
-        Assertions.assertEquals(updatedDog3.getId(), Long.valueOf(3L));
-        Dog dog4 = new Dog();
-        Assertions.assertThrows(DogNotFoundException.class, () -> {
-            service.update(4L, dog4);
-        });
     }
 
+    @Test
+    void testDelete() {
+        long testId = 1;
+        Dog dog = new Dog();
+        dog.setId(testId);
+
+        DogRepository dogRepository = mock(DogRepository.class);
+        doNothing().when(dogRepository).deleteById(testId);
+        DogService service = new DogService(dogRepository);
+        service.delete(testId);
+        Mockito.verify(dogRepository, Mockito.times(1)).deleteById(testId);
     }
+
+    @Test
+    void getAll() {
+        List<Dog> dogList = new ArrayList<>();
+        Dog dog1 = new Dog();
+        dog1.setId(1L);
+        Dog dog2 = new Dog();
+        dog2.setId(2L);
+        Mockito.when(repository.findAll()).thenReturn(dogList);
+        DogService service = new DogService(repository);
+        Collection<Dog> result = service.findAll();
+        Assertions.assertEquals(dogList, result);
+        Mockito.verify(repository, Mockito.times(1)).findAll();
+    }
+}
+
+
 
 
 

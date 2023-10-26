@@ -62,7 +62,7 @@ public class ReportServiceTest {
     }
 
     @Test
-    void save() {
+    void create() {
         long testId = 1;
         Report report = new Report();
         report.setId(testId);

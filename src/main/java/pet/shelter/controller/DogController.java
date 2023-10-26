@@ -37,9 +37,8 @@ public class DogController {
 
     @Operation(summary = "Update dog info")
     @PutMapping("/{id}")
-    public ResponseEntity<Dog> update(@PathVariable Long id, Dog dog) {
-        Dog foundedDog = service.findById(id);
-        if (foundedDog == null) {
+    public ResponseEntity<Dog> update(@PathVariable Long id,@RequestBody Dog dog) {
+        if (dog == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(service.update(id, dog));

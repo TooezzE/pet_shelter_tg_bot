@@ -1,6 +1,7 @@
 package pet.shelter.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import org.jetbrains.annotations.TestOnly;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,18 +28,17 @@ public class CatAdopterController {
     @Operation(summary = "Get user by id")
     @GetMapping("/{id}")
     public ResponseEntity<CatAdopter> findAdopter(@PathVariable Long id) {
-        CatAdopter foundedAdopter = service.findAdopter(id);
-        if (foundedAdopter == null) {
-            return ResponseEntity.notFound().build();
-        }
+//        CatAdopter foundedAdopter = service.findAdopter(id);
+//        if (foundedAdopter == null) {
+//            return ResponseEntity.notFound().build();
+//        }
         return ResponseEntity.ok(service.findAdopter(id));
     }
 
     @Operation(summary = "Update user info")
     @PutMapping("/{id}")
     public ResponseEntity<CatAdopter> update(@PathVariable Long id, @RequestBody CatAdopter catAdopters) {
-        CatAdopter foundAdopters = service.findAdopter(id);
-        if (foundAdopters == null) {
+        if (catAdopters == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(service.updateAdopter(id, catAdopters));
@@ -66,4 +66,6 @@ public class CatAdopterController {
         return ResponseEntity.ok(service.getByChatId(chatId));
     }
 
+
 }
+

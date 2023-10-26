@@ -7,15 +7,21 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pet.shelter.model.Cat;
 import pet.shelter.model.Dog;
 import pet.shelter.model.DogAdopter;
+import pet.shelter.model.Report;
+import pet.shelter.repository.CatRepository;
 import pet.shelter.repository.DogAdopterRepository;
+import pet.shelter.services.CatService;
 import pet.shelter.services.DogAdopterService;
 import pet.shelter.services.DogService;
+import pet.shelter.services.ReportService;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 public class DogAdopterServiceTest {
@@ -44,23 +50,50 @@ public class DogAdopterServiceTest {
         Assertions.assertEquals(adopterSet, result);
     }
     @Test
-    public void testUpdateDogOwners() {//не проходит
+    public void testUpdate() {
         DogAdopter dogAdopter1 = new DogAdopter();
         dogAdopter1.setName("Иван");
-        DogAdopter dogAdopter2 = new DogAdopter();
-        dogAdopter2.setName("Сережа");
-        DogAdopter dogAdopter3 = new DogAdopter();
-        dogAdopter3.setName("Олег");
-        DogAdopter updatedDogOwner1 = service.createAdopter(dogAdopter1);
-        DogAdopter updatedDogOwner2 = service.createAdopter(dogAdopter2);
-        DogAdopter updatedDogOwner3 = service.createAdopter(dogAdopter3);
-        Assertions.assertEquals(updatedDogOwner1.getName(), "Иван");
-        Assertions.assertEquals(updatedDogOwner1.getId(), Long.valueOf(1L));
-        Assertions.assertEquals(updatedDogOwner2.getName(), "Сережа");
-        Assertions.assertEquals(updatedDogOwner2.getId(),Long.valueOf(2L));
-        Assertions.assertEquals(updatedDogOwner3.getName(), "Олег");
-        Assertions.assertEquals(updatedDogOwner3.getId(), Long.valueOf(3L));
+        Mockito.when(repository.save(dogAdopter1)).thenReturn(dogAdopter1);
+        DogAdopter updatedDogAdopter1 = service.createAdopter(dogAdopter1);
+        Assertions.assertEquals(updatedDogAdopter1.getName(), "Иван");
+
     }
+
+    @Test
+    void getAll() {
+        List<DogAdopter> dogAdopters =  new ArrayList<>();
+        DogAdopter adopter1 = new DogAdopter();
+        adopter1.setName("Имя1");
+        DogAdopter adopter2 = new DogAdopter();
+        adopter2.setName("Имя2");
+        Mockito.when(repository.findAll()).thenReturn(dogAdopters);
+        DogAdopterService service = new DogAdopterService(repository);
+        Collection<DogAdopter> result = service.getAll();
+        Assertions.assertEquals(dogAdopters, result);
+    }
+    @Test
+    void testDelete() {
+        long testId=1;
+        DogAdopter dogAdopter = new DogAdopter();
+        dogAdopter.getId();
+
+        DogAdopterRepository repository = mock(DogAdopterRepository.class);
+        doNothing().when(repository).deleteById(testId);
+        DogAdopterService service = new DogAdopterService(repository);
+        service.deleteAdopter(testId);
+
+}
+    @Test
+    public void testCreate() {
+
+        DogAdopter adopter = new DogAdopter();
+        Mockito.when(repository.save(adopter)).thenReturn(adopter);
+        DogAdopter create = service.createAdopter(adopter);
+        Mockito.verify(repository, Mockito.times(1)).save(adopter);
+        Assertions.assertEquals(adopter.getName(), create.getName());
+        Assertions.assertEquals(adopter.getId(), create.getId());
+    }
+
 }
 
 

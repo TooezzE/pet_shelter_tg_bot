@@ -19,11 +19,12 @@ public class Dog {
     @Column(name = "description")
     private String descriptionOfThePet;
 
-    public Dog(String name, String breed, int birthday, String descriptionOfThePet) {
+    public Dog(long id, String name, String breed, int birthday, String descriptionOfThePet) {
         this.name = name;
         this.breed = breed;
         this.birthday = birthday;
         this.descriptionOfThePet = descriptionOfThePet;
+        this.id=id;
     }
 
     public Dog() {
@@ -56,6 +57,10 @@ public class Dog {
 
     public void setDescriptionOfThePet(String descriptionOfThePet) {
         this.descriptionOfThePet = descriptionOfThePet;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
