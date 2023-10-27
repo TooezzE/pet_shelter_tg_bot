@@ -37,7 +37,7 @@ public class CatAdopter {
     @JoinColumn(name = "cat_id", referencedColumnName = "id")
     private Cat cat;
 
-    public CatAdopter(String name, int birthday, String phoneNumber, String email, String address, Long chatId, Cat cat) {
+    public CatAdopter(Long id,String name, int birthday, String phoneNumber, String email, String address, Long chatId, Cat cat) {
         this.name = name;
         this.birthday = birthday;
         this.phoneNumber = phoneNumber;
@@ -45,6 +45,7 @@ public class CatAdopter {
         this.address = address;
         this.chatId = chatId;
         this.cat = cat;
+        this.id = id;
     }
 
     public CatAdopter() {
@@ -96,6 +97,10 @@ public class CatAdopter {
 
     public void setChatId(Long chatId) {
         this.chatId = chatId;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Cat getCat() {

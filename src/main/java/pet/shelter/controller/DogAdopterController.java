@@ -28,18 +28,17 @@ public class DogAdopterController {
     @Operation(summary = "Get user by id")
     @GetMapping("/{id}")
     public ResponseEntity<DogAdopter> findAdopter(@PathVariable Long id) {
-        DogAdopter foundedAdopter = service.findAdopter(id);
-        if (foundedAdopter == null) {
-            return ResponseEntity.notFound().build();
-        }
+//        DogAdopter foundedAdopter = service.findAdopter(id);
+//        if (foundedAdopter == null) {
+//            return ResponseEntity.notFound().build();
+//        }
         return ResponseEntity.ok(service.findAdopter(id));
     }
 
     @Operation(summary = "Update user info")
     @PutMapping("/{id}")
     public ResponseEntity<DogAdopter> update(@PathVariable Long id, @RequestBody DogAdopter dogAdopter) {
-        DogAdopter foundedAdopter = service.findAdopter(id);
-        if (foundedAdopter == null) {
+        if (dogAdopter == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(service.updateAdopter(id, dogAdopter));

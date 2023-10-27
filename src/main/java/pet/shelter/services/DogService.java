@@ -33,7 +33,6 @@ public class DogService {
         Dog foundedDog = repository.findById(id).orElseThrow(DogNotFoundException::new);
         foundedDog.setName(dog.getName());
         foundedDog.setDescriptionOfThePet(dog.getDescriptionOfThePet());
-
         return repository.save(foundedDog);
     }
     public void delete(Long id){

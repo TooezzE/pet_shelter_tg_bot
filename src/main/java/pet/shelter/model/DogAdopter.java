@@ -38,12 +38,7 @@ public class DogAdopter {
     @JoinColumn(name = "dog_id", referencedColumnName = "id")
     private Dog dog;
 
-    public DogAdopter(String name, Long chatId) {
-        this.name = name;
-        this.chatId = chatId;
-    }
-
-    public DogAdopter(String name, int birthday, String phoneNumber, String email, String address, Long chatId, Dog dog) {
+    public DogAdopter(Long id,String name, int birthday, String phoneNumber, String email, String address, Long chatId, Dog dog) {
         this.name = name;
         this.birthday = birthday;
         this.phoneNumber = phoneNumber;
@@ -51,6 +46,8 @@ public class DogAdopter {
         this.address = address;
         this.chatId = chatId;
         this.dog = dog;
+        this.id=id;
+
     }
 
     public DogAdopter() {

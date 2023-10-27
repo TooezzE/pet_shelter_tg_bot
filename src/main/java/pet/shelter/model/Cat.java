@@ -19,11 +19,12 @@ public class Cat {
     @Column(name = "description")
     private String descriptionOfThePet;
 
-    public Cat(String name, String breed, int birthday, String descriptionOfThePet) {
+    public Cat(Long id,String name, String breed, int birthday, String descriptionOfThePet) {
         this.name = name;
         this.breed = breed;
         this.birthday = birthday;
         this.descriptionOfThePet = descriptionOfThePet;
+        this.id=id;
     }
 
     public Cat() {
@@ -49,6 +50,9 @@ public class Cat {
         return birthday;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getDescriptionOfThePet() {
         return descriptionOfThePet;
@@ -57,6 +61,8 @@ public class Cat {
     public void setDescriptionOfThePet(String descriptionOfThePet) {
         this.descriptionOfThePet = descriptionOfThePet;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
