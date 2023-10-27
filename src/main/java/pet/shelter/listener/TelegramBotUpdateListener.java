@@ -158,6 +158,8 @@ public class TelegramBotUpdateListener implements UpdatesListener {
      */
     @Override
     public int process(List<Update> updates) {
+        List<String> catNames = catRepository.findAll().stream().map(Cat::getName).toList();
+        List<String> dogNames = dogRepository.findAll().stream().map(Dog::getName).toList();
         try {
             updates.forEach(update -> {
                 logger.info("Start update: {}", update);
@@ -166,17 +168,15 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                 String text = message.text();
                 int messageId = message.messageId();
                 Contact contact = update.message().contact();
-
-                List<String> catNames = catRepository.findAll().stream().map(Cat::getName).toList();
-                List<String> dogNames = dogRepository.findAll().stream().map(Dog::getName).toList();
+                UserStatus userStatus = userStatusService.getByChatId(chatId).get();
 
                 if (text != null && update.message().photo() == null && contact == null) {
                     switch (shelterCommand(text)) {
                         case START -> {
-                            if (userStatusService.getByChatId(chatId).isEmpty()) {
+                            if (userStatus == null) {
                                 sendMessage(chatId, "Привет! Я могу показать информацию о приютах," +
                                                     "как взять животное из приюта и принять отчет о питомце");
-                                UserStatus userStatus = new UserStatus();
+                                userStatus = new UserStatus();
                                 userStatus.setChatId(chatId);
                                 userStatusService.saveUserStatus(userStatus);
                             }
@@ -184,7 +184,6 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                         }
                         case CAT -> {
                             if (userStatusService.getByChatId(chatId).isPresent()) {
-                                UserStatus userStatus = userStatusService.getByChatId(chatId).get();
                                 userStatus.setShelterType(ShelterType.CAT);
                                 userStatusService.saveUserStatus(userStatus);
                                 sendMessage(chatId, "Вы выбрали приют с кошками.");
@@ -193,7 +192,6 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                         }
                         case DOG -> {
                             if (userStatusService.getByChatId(chatId).isPresent()) {
-                                UserStatus userStatus = userStatusService.getByChatId(chatId).get();
                                 userStatus.setShelterType(ShelterType.DOG);
                                 userStatusService.saveUserStatus(userStatus);
                                 sendMessage(chatId, "Вы выбрали приют с собаками");
@@ -207,9 +205,7 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                             keyBoard.shelterInfoMenu(chatId);
                         }
                         case ADOPT_ANIMAL -> {
-                            UserStatus userStatus = userStatusService.getByChatId(chatId).get();
                             boolean isCatToAdopt = userStatus.getShelterType() == ShelterType.CAT;
-                            keyBoard.chooseAnimal(chatId, isCatToAdopt);
                             if(isCatToAdopt) {
                                 CatAdopter catAdopter = new CatAdopter();
                                 catAdopter.setChatId(chatId);
@@ -221,13 +217,13 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                                 dogAdopterService.createAdopter(dogAdopter);
                                 userStatus.setDogAdopter(dogAdopter);
                             }
+                            keyBoard.chooseAnimal(chatId, isCatToAdopt);
                         }
                         case HOW_ADOPT_ANIMAL_INFO -> {
                             keyBoard.howToTakeAnAnimalFromShelter(chatId);
                         }
                         case GENERAL_SHELTER_INFO -> {
                             if (userStatusService.getByChatId(chatId).isPresent()) {
-                                UserStatus userStatus = userStatusService.getByChatId(chatId).get();
                                 if (userStatus.getShelterType().equals(ShelterType.CAT)) {
                                     sendMessage(chatId, """
                                             Информация о кошачем приюте - ...
@@ -245,13 +241,12 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                         }
                         case SHELTER_ADDRESS_SCHEDULE -> {
                             if (userStatusService.getByChatId(chatId).isPresent()) {
-                                UserStatus context = userStatusService.getByChatId(chatId).get();
-                                if (context.getShelterType().equals(ShelterType.CAT)) {
+                                if (userStatus.getShelterType().equals(ShelterType.CAT)) {
                                     sendMessage(chatId, """
                                             Адрес кошачего приюта - ...
                                             График работы - ...
                                             """);
-                                } else if (context.getShelterType().equals(ShelterType.DOG)) {
+                                } else if (userStatus.getShelterType().equals(ShelterType.DOG)) {
                                     sendMessage(chatId, """
                                             Адрес собачего приюта - ...
                                             График работы - ...
@@ -261,14 +256,13 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                         }
                         case RECOMMENDATIONS_LIST -> {
                             if (userStatusService.getByChatId(chatId).isPresent()) {
-                                UserStatus context = userStatusService.getByChatId(chatId).get();
-                                if (context.getShelterType().equals(ShelterType.CAT)) {
+                                if (userStatus.getShelterType().equals(ShelterType.CAT)) {
                                     sendMessage(chatId, """
                                             Правила знакомства с животным - ...
                                             Список рекомендаций - ...
                                             Список причин отказа в выдаче животного - ...
                                             """);
-                                } else if (context.getShelterType().equals(ShelterType.DOG)) {
+                                } else if (userStatus.getShelterType().equals(ShelterType.DOG)) {
                                     sendMessage(chatId, """
                                             Правила знакомства с животным - ...
                                             Список рекомендаций - ...
@@ -281,11 +275,10 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                         }
                         case DOCUMENTS_LIST -> {
                             if (userStatusService.getByChatId(chatId).isPresent()) {
-                                UserStatus context = userStatusService.getByChatId(chatId).get();
-                                if (context.getShelterType().equals(ShelterType.CAT)) {
+                                if (userStatus.getShelterType().equals(ShelterType.CAT)) {
                                     sendMessage(chatId, "Для того чтобы взять " +
                                                         "кота из приюта необходимы такие документы: ...");
-                                } else if (context.getShelterType().equals(ShelterType.DOG)) {
+                                } else if (userStatus.getShelterType().equals(ShelterType.DOG)) {
                                     sendMessage(chatId, "Для того чтобы взять " +
                                                         "собаку из приюта необходимы такие документы: ...");
                                 }
@@ -311,7 +304,6 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                                     """);
                         }
                     }
-                    UserStatus userStatus = userStatusService.getByChatId(chatId).get();
                     if (catNames.contains(text)) {
                         Cat cat = catRepository.findCatByName(text);
                         userStatus.getCatAdopter().setCat(cat);

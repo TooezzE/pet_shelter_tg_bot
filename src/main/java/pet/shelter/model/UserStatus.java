@@ -17,9 +17,11 @@ public class UserStatus {
     @Enumerated(EnumType.STRING)
     @Column(name = "shelter_type")
     private ShelterType shelterType;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cat_adopter_id", referencedColumnName = "id")
     private CatAdopter catAdopter;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dog_adopter_id", referencedColumnName = "id")
     private DogAdopter dogAdopter;
 
     public UserStatus(Long chatId, ShelterType shelterType) {
