@@ -1,6 +1,7 @@
 package pet.shelter.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.jetbrains.annotations.TestOnly;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/adopter-cat")
+@Tag(name = "Cat Adopter Controller", description = "Making CRUD operations with cat adopters")
 public class CatAdopterController {
     private final CatAdopterService service;
 

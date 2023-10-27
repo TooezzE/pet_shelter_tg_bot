@@ -1,6 +1,8 @@
 package pet.shelter.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +15,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("file")
+@Tag(name = "Reports Controller", description = "Making CRUD operations with reports")
 public class ReportController {
 
     private final ReportService reportService;
@@ -22,6 +25,7 @@ public class ReportController {
         this.reportService = reportService;
     }
 
+    @Operation(summary = "Get report by id")
     @GetMapping("/{id}")
     public ResponseEntity<Report> findReport(@Parameter(description = "report id") @PathVariable Long id) {
         Report report = reportService.findById(id);
@@ -32,17 +36,20 @@ public class ReportController {
         }
     }
 
+    @Operation(summary = "Delete report by id")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReport(@Parameter(description = "report id") @PathVariable Long id) {
         reportService.delete(id);
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Get all reports")
     @GetMapping("/getAll")
     public ResponseEntity<Collection<Report>> getAll() {
         return ResponseEntity.ok(reportService.getAll());
     }
 
+    @Operation(summary = "Get report's photo from DB")
     @GetMapping("/{id}/photo-from-db")
     public ResponseEntity<byte[]> findPhotoFromDB(@Parameter(description = "report id") @PathVariable Long id) {
         Report report = reportService.findById(id);

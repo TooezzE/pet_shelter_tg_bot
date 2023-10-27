@@ -32,8 +32,12 @@ public class CatService {
     public Cat update(Long id, Cat cat){
         logger.info("Вызван метод изменения Cat, id = " + id);
         Cat foundedCat = repository.findById(id).orElseThrow(CatNotFoundException::new);
-        foundedCat.setName(cat.getName());
-        foundedCat.setDescriptionOfThePet(cat.getDescriptionOfThePet());
+        if(!cat.getName().equals("string")) {
+            foundedCat.setName(cat.getName());
+        }
+        if(!cat.getDescriptionOfThePet().equals("string")) {
+            foundedCat.setDescriptionOfThePet(cat.getDescriptionOfThePet());
+        }
         return repository.save(foundedCat);
     }
     public void delete(Long id){

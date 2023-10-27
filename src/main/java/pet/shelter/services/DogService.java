@@ -31,8 +31,12 @@ public class DogService {
     public Dog update(Long id, Dog dog){
         logger.info("Вызван метод изменения Dog");
         Dog foundedDog = repository.findById(id).orElseThrow(DogNotFoundException::new);
-        foundedDog.setName(dog.getName());
-        foundedDog.setDescriptionOfThePet(dog.getDescriptionOfThePet());
+        if(!dog.getName().equals("string")) {
+            foundedDog.setName(dog.getName());
+        }
+        if(!dog.getDescriptionOfThePet().equals("string")) {
+            foundedDog.setDescriptionOfThePet(dog.getDescriptionOfThePet());
+        }
         return repository.save(foundedDog);
     }
     public void delete(Long id){
