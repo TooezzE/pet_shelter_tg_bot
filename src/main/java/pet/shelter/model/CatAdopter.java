@@ -33,7 +33,7 @@ public class CatAdopter {
     @Column(name = "chat_id")
     private Long chatId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cat_id", referencedColumnName = "id")
     private Cat cat;
 

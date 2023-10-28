@@ -62,7 +62,14 @@ public class Cat {
         this.descriptionOfThePet = descriptionOfThePet;
     }
 
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
 
+
+    public void setBirthday(int birthday) {
+        this.birthday = birthday;
+    }
 
     @Override
     public boolean equals(Object o) {

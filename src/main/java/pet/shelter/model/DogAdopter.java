@@ -1,6 +1,8 @@
 package pet.shelter.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -33,8 +35,7 @@ public class DogAdopter {
 
     @Column(name = "chat_id")
     private Long chatId;
-
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dog_id", referencedColumnName = "id")
     private Dog dog;
 

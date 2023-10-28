@@ -63,6 +63,15 @@ public class Dog {
         this.id = id;
     }
 
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+    public void setBirthday(int birthday) {
+        this.birthday = birthday;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
