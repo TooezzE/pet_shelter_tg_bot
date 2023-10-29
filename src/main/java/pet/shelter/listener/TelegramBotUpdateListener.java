@@ -173,9 +173,9 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                 if (text != null && update.message().photo() == null && contact == null) {
                     switch (shelterCommand(text)) {
                         case START -> {
+                            sendMessage(chatId, "Привет! Я могу показать информацию о приютах," +
+                                    "как взять животное из приюта и принять отчет о питомце");
                             if (userStatus == null) {
-                                sendMessage(chatId, "Привет! Я могу показать информацию о приютах," +
-                                                    "как взять животное из приюта и принять отчет о питомце");
                                 userStatus = new UserStatus();
                                 userStatus.setChatId(chatId);
                                 userStatusService.saveUserStatus(userStatus);
@@ -211,11 +211,13 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                                 catAdopter.setChatId(chatId);
                                 catAdopterService.createAdopter(catAdopter);
                                 userStatus.setCatAdopter(catAdopter);
+                                userStatusService.saveUserStatus(userStatus);
                             } else {
                                 DogAdopter dogAdopter = new DogAdopter();
                                 dogAdopter.setChatId(chatId);
                                 dogAdopterService.createAdopter(dogAdopter);
                                 userStatus.setDogAdopter(dogAdopter);
+                                userStatusService.saveUserStatus(userStatus);
                             }
                             keyBoard.chooseAnimal(chatId, isCatToAdopt);
                         }
@@ -307,12 +309,16 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                     if (catNames.contains(text)) {
                         Cat cat = catRepository.findCatByName(text);
                         userStatus.getCatAdopter().setCat(cat);
+                        userStatusService.saveUserStatus(userStatus);
+                        catAdopterService.updateAdopter(userStatus.getCatAdopter().getId(), userStatus.getCatAdopter());
                         sendMessage(chatId, "Поздравляю с приобритением питомца. " +
                                 "Теперь придется присылать ежедневный отчет");
                         keyBoard.shelterInfoMenu(chatId);
                     } else if (dogNames.contains(text)) {
                         Dog dog = dogRepository.findDogByName(text);
                         userStatus.getDogAdopter().setDog(dog);
+                        userStatusService.saveUserStatus(userStatus);
+                        dogAdopterService.updateAdopter(userStatus.getDogAdopter().getId(), userStatus.getDogAdopter());
                         sendMessage(chatId, "Поздравляю с приобритением питомца. " +
                                 "Теперь придется присылать ежедневный отчет");
                         keyBoard.shelterInfoMenu(chatId);

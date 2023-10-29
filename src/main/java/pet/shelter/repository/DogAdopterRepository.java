@@ -9,5 +9,5 @@ import java.util.Set;
 @Repository
 public interface DogAdopterRepository extends JpaRepository<DogAdopter,Long> {
 
-    Set<DogAdopter> findDogAdopterByChatId(Long chatId);
+    DogAdopter findDogAdopterByChatId(Long chatId);
 }

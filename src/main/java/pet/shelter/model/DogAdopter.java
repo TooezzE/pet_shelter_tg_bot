@@ -40,6 +40,7 @@ public class DogAdopter {
     private Dog dog;
 
     public DogAdopter(Long id,String name, int birthday, String phoneNumber, String email, String address, Long chatId, Dog dog) {
+        this.id = id;
         this.name = name;
         this.birthday = birthday;
         this.phoneNumber = phoneNumber;
@@ -47,8 +48,6 @@ public class DogAdopter {
         this.address = address;
         this.chatId = chatId;
         this.dog = dog;
-        this.id=id;
-
     }
 
     public DogAdopter() {

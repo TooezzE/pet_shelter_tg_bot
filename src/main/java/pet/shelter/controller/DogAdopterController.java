@@ -59,9 +59,9 @@ public class DogAdopterController {
         return ResponseEntity.ok(service.getAll());
     }
 
-    @Operation(summary = "Get users by chat id")
+    @Operation(summary = "Get user by chat id")
     @GetMapping("/chat/{chatId}")
-    public ResponseEntity<Collection<DogAdopter>> getByChatId(@PathVariable Long chatId) {
+    public ResponseEntity<DogAdopter> getByChatId(@PathVariable Long chatId) {
         if (chatId == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
