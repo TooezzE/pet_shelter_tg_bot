@@ -18,13 +18,15 @@ public class Cat {
     private int birthday;
     @Column(name = "description")
     private String descriptionOfThePet;
+    private boolean isAdopted;
 
-    public Cat(Long id,String name, String breed, int birthday, String descriptionOfThePet) {
+    public Cat(Long id, String name, String breed, int birthday, String descriptionOfThePet) {
+        this.id = id;
         this.name = name;
         this.breed = breed;
         this.birthday = birthday;
         this.descriptionOfThePet = descriptionOfThePet;
-        this.id=id;
+        this.isAdopted = false;
     }
 
     public Cat() {
@@ -66,6 +68,13 @@ public class Cat {
         this.breed = breed;
     }
 
+    public boolean isAdopted() {
+        return isAdopted;
+    }
+
+    public void setAdopted(boolean adopted) {
+        isAdopted = adopted;
+    }
 
     public void setBirthday(int birthday) {
         this.birthday = birthday;

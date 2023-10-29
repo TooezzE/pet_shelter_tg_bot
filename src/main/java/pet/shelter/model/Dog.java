@@ -18,13 +18,15 @@ public class Dog {
     private int birthday;
     @Column(name = "description")
     private String descriptionOfThePet;
+    private boolean isAdopted;
 
-    public Dog(long id, String name, String breed, int birthday, String descriptionOfThePet) {
+    public Dog(Long id, String name, String breed, int birthday, String descriptionOfThePet) {
+        this.id = id;
         this.name = name;
         this.breed = breed;
         this.birthday = birthday;
         this.descriptionOfThePet = descriptionOfThePet;
-        this.id=id;
+        this.isAdopted = false;
     }
 
     public Dog() {
@@ -71,6 +73,13 @@ public class Dog {
         this.birthday = birthday;
     }
 
+    public boolean isAdopted() {
+        return isAdopted;
+    }
+
+    public void setAdopted(boolean adopted) {
+        isAdopted = adopted;
+    }
 
     @Override
     public boolean equals(Object o) {
