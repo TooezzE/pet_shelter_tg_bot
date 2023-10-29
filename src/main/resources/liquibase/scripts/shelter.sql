@@ -1,12 +1,14 @@
 -- liquibase formatted sql
 
 -- changeset egor:1
+
 create table dogs (
 	id bigserial primary key,
 	name varchar,
 	breed varchar,
 	birthday int4,
-	description	varchar
+	description	varchar,
+	is_adopted boolean
 );
 
 create table cats (
@@ -14,7 +16,8 @@ create table cats (
 	name varchar,
 	breed varchar,
 	birthday int4,
-	description	varchar
+	description	varchar,
+	is_adopted boolean
 );
 
 create table dog_adopters (
