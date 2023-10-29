@@ -73,7 +73,7 @@ public class KeyBoard {
         replyKeyboardMarkup.addRow(new KeyboardButton(VOLUNTEER.getCommand()),
                 new KeyboardButton(SEND_CONTACT.getCommand()).requestContact(true));
         replyKeyboardMarkup.addRow(MENU.getCommand());
-        sendMenu(chatId, replyKeyboardMarkup, "Вы можете получить информацию о приюте в главном меню");
+        sendMenu(chatId, replyKeyboardMarkup, "Чтобы вернуться в главное меню выберите \"Главное меню\"");
     }
 
     /**
@@ -87,14 +87,16 @@ public class KeyBoard {
     }
 
 
-    public void chooseAnimal(Long chatId, boolean isCatShelterChosen) { // метод для выбора животных из списка *не доделан*
+    public void chooseAnimal(Long chatId, boolean isCatShelterChosen) { // метод для выбора животных из списка
         String[] names;
         if(isCatShelterChosen) {
             names = catRepository.findAll().stream()
+                    .filter(c -> !c.isAdopted())
                     .map(Cat::getName)
                     .toArray(String[]::new);
         } else {
             names = dogRepository.findAll().stream()
+                    .filter(d -> !d.isAdopted())
                     .map(Dog::getName)
                     .toArray(String[]::new);
         }
