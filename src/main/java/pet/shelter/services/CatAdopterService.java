@@ -42,7 +42,7 @@ public class CatAdopterService {
     public Collection<CatAdopter> getAll() {
         return repository.findAll();
     }
-    public Collection<CatAdopter> getByChatId(Long chatId) {
+    public CatAdopter getByChatId(Long chatId) {
         return repository.findCatAdopterByChatId(chatId);
     }
 

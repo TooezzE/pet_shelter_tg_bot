@@ -42,7 +42,7 @@ public class DogAdopterService {
     public Collection<DogAdopter> getAll() {
         return repository.findAll();
     }
-    public Collection<DogAdopter> getByChatId(Long chatId) {
+    public DogAdopter getByChatId(Long chatId) {
         return repository.findDogAdopterByChatId(chatId);
     }
 

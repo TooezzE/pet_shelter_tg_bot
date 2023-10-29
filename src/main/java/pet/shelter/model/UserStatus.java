@@ -17,10 +17,10 @@ public class UserStatus {
     @Enumerated(EnumType.STRING)
     @Column(name = "shelter_type")
     private ShelterType shelterType;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cat_adopter_id", referencedColumnName = "id")
     private CatAdopter catAdopter;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dog_adopter_id", referencedColumnName = "id")
     private DogAdopter dogAdopter;
 

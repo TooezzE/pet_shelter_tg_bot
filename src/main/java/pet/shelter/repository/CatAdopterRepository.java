@@ -9,5 +9,5 @@ import java.util.Set;
 @Repository
 public interface CatAdopterRepository extends JpaRepository<CatAdopter,Long> {
 
-    Set<CatAdopter> findCatAdopterByChatId(Long chatId);
+    CatAdopter findCatAdopterByChatId(Long chatId);
 }
