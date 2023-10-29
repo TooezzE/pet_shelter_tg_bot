@@ -204,8 +204,15 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                             keyBoard.shelterInfoMenu(chatId);
                         }
                         case ADOPT_ANIMAL -> {
+                            boolean alreadyHavePet = false;
                             boolean isCatToAdopt = userStatus.getShelterType() == ShelterType.CAT;
-                            if(isCatToAdopt) {
+                            if (isCatToAdopt && userStatus.getCatAdopter().getCat() != null) {
+                                alreadyHavePet = true;
+                                sendMessage(chatId, "Вы уже выбирали кошку ранее, второй обзавестись, к сожалению, нельзя");
+                            } else if(!isCatToAdopt && userStatus.getDogAdopter().getDog() != null) {
+                                alreadyHavePet = true;
+                                sendMessage(chatId, "Вы уже выбирали собаку ранее, второй обзавестись, к сожалению, нельзя");
+                            } else if(isCatToAdopt) {
                                 CatAdopter catAdopter = new CatAdopter();
                                 catAdopter.setChatId(chatId);
                                 catAdopterService.createAdopter(catAdopter);
@@ -219,10 +226,12 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                                 userStatusService.saveUserStatus(userStatus);
                             }
                             if(isCatToAdopt && catNames.isEmpty()) {
-                                sendMessage(chatId, "К сожалению в приюте сейчас нет кошек, которых можно забрать");
+                                sendMessage(chatId, "К сожалению, в приюте сейчас нет кошек, которых можно забрать");
                                 keyBoard.shelterMenu(chatId);
                             } else if(!isCatToAdopt && dogNames.isEmpty()) {
-                                sendMessage(chatId, "К сожалению в приюте сейчас нет собак, которых можно забрать");
+                                sendMessage(chatId, "К сожалению, в приюте сейчас нет собак, которых можно забрать");
+                                keyBoard.shelterMenu(chatId);
+                            } else if(alreadyHavePet) {
                                 keyBoard.shelterMenu(chatId);
                             } else {
                                 keyBoard.chooseAnimal(chatId, isCatToAdopt);
