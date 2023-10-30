@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories("pet.shelter.repositories")
-@EntityScan("pet.shelter.entity")
+@EntityScan("pet.shelter.model")
 public class ShelterApplication {
 
 	public static void main(String[] args) {
