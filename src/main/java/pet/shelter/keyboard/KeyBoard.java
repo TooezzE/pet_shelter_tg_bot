@@ -90,13 +90,11 @@ public class KeyBoard {
     public void chooseAnimal(Long chatId, boolean isCatShelterChosen) { // метод для выбора животных из списка
         String[] names;
         if(isCatShelterChosen) {
-            names = catRepository.findAll().stream()
-                    .filter(c -> !c.isAdopted())
+            names = catRepository.findCatsByIsAdopted(false).stream()
                     .map(Cat::getName)
                     .toArray(String[]::new);
         } else {
-            names = dogRepository.findAll().stream()
-                    .filter(d -> !d.isAdopted())
+            names = dogRepository.findDogsByIsAdopted(false).stream()
                     .map(Dog::getName)
                     .toArray(String[]::new);
         }

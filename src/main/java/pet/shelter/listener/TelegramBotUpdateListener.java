@@ -206,10 +206,12 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                         case ADOPT_ANIMAL -> {
                             boolean alreadyHavePet = false;
                             boolean isCatToAdopt = userStatus.getShelterType() == ShelterType.CAT;
-                            if (isCatToAdopt && userStatus.getCatAdopter().getCat() != null) {
+                            if (isCatToAdopt && userStatus.getCatAdopter() != null
+                                    && userStatus.getCatAdopter().getCat() != null) {
                                 alreadyHavePet = true;
                                 sendMessage(chatId, "Вы уже выбирали кошку ранее, второй обзавестись, к сожалению, нельзя");
-                            } else if(!isCatToAdopt && userStatus.getDogAdopter().getDog() != null) {
+                            } else if(!isCatToAdopt && userStatus.getDogAdopter() != null
+                                    && userStatus.getDogAdopter().getDog() != null) {
                                 alreadyHavePet = true;
                                 sendMessage(chatId, "Вы уже выбирали собаку ранее, второй обзавестись, к сожалению, нельзя");
                             } else if(isCatToAdopt) {
@@ -316,7 +318,7 @@ public class TelegramBotUpdateListener implements UpdatesListener {
                                     здоровье и изменение в поведении питомца.
                                     Загрузите фото, а в подписи к нему, скопируйте и заполните текст ниже.
                                                                         
-                                    Рацион: ...;
+                                    Питание: ...;
                                     Здоровье: ...;
                                     Поведение: ...;
                                     """);
